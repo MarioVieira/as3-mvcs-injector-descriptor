@@ -2,8 +2,10 @@ package org.as3.mvcsc.interfaces
 {
 	/**
 	 * 
-	 * @author Mario Vieira
 	 * 
+	 * Dipose design pattern implementation
+	 * 
+	 * @author Mario Vieira
 	 */	
 	public interface IDispose
 	{

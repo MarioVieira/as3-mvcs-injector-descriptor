@@ -5,10 +5,9 @@ package org.as3.mvcsc.utils
 	import mx.utils.ObjectUtil;
 	
 	/**
-	 * ...
-	 * A class made to smoothen you tracing needs.
+	 * 
 	 * @author	Per Kristian Stoveland - perk.stoveland@gmail.com
-	 * (a little modified now :)
+	 * 
 	 */
 	
 	public class Tracer {

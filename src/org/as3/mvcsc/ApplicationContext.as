@@ -11,20 +11,41 @@ package org.as3.mvcsc
 	
 	/**
 	 * 
+	 * MVCS Command and Background Processes application context
+	 * It takes descriptions for the mapping in compile time (descriptor object) and run time (XML seralized into typed object)
+	 * 
 	 * @author Mario Vieira
 	 * 
 	 */	
 	public class ApplicationContext extends SignalContext
 	{
+		/**
+		 * 
+		 * 
+		 * @return  
+		 * 
+		 */
 		[Bindable] public var applicationFrameWorkDescriptor:DescriptorAppFrameWork; 
+		
+		/**
+		 * @private
+		 */
 		
 		protected var _applicationFrameWork:ApplicationFrameWork;
 		/** 
-		 * Holds and executes all mappings for Model, View, Control, Services, Command, and Background Processes 
-		 */		
+		 * @private 
+		 */
+		
 		protected var _appFrameWork				:ApplicationFrameWork;
+		/**
+		 * @private 
+		 */
 		protected var _loadExternalDescriptor	:UtilsDescriptorLoader;
 		
+		/**
+		 * 
+		 * 
+		 */
 		override public function startup() : void
 		{
 			setupCore();
@@ -33,7 +54,7 @@ package org.as3.mvcsc
 		
 		/** 
 		 * 
-		 * Rules for making <code>injector, signalCommandMap, mediatorMap</code> available for Dependency Injecton via Interfaces 
+		 * Rules for making <code>injector, signalCommandMap, mediatorMap</code> available via injector
 		 * 
 		 */		
 		protected function setupCore():void
@@ -43,6 +64,10 @@ package org.as3.mvcsc
 			injector.mapValue(IMediatorMap, mediatorMap);
 		}
 		
+		/**
+		 * 
+		 * 
+		 */
 		protected function loadExternalFrameWorkDescriptors():void
 		{
 			_loadExternalDescriptor = new UtilsDescriptorLoader( (applicationFrameWorkDescriptor) ? applicationFrameWorkDescriptor.uniqueAppId : 0 );
@@ -50,12 +75,23 @@ package org.as3.mvcsc
 			_loadExternalDescriptor.loadExternalAppFrameWorkDescriptor();
 		}
   
+		/**
+		 * 
+		 * @private
+		 * 
+		 */
 		protected function onExternalFrameWorkDescriptorLoaded(externalAppFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
 		{
 			_loadExternalDescriptor.dispose();  
 			setupApplicationFrameWork(applicationFrameWorkDescriptor, externalAppFrameWorkDescriptor);
 		}
 		      
+		/**
+		 * 
+		 * @param appFrameWorkDescriptor
+		 * @param externalAppFrameWorkDescriptor
+		 * 
+		 */
 		protected function setupApplicationFrameWork(appFrameWorkDescriptor:DescriptorAppFrameWork, externalAppFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
 		{
 			_appFrameWork = new ApplicationFrameWork( new DescriptorCore(injector, signalCommandMap, mediatorMap), appFrameWorkDescriptor, externalAppFrameWorkDescriptor);

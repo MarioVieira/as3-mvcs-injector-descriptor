@@ -5,16 +5,35 @@ package org.as3.mvcsc.utils
 	import org.as3.mvcsc.vo.PropertiesCollection;
 	import org.as3.mvcsc.vo.PropertyInfo;
 
+	/**
+	 * 
+	 *
+	 * Returns the object properties of a given Object into a PropertiesCollection (Note that it should be cached as descrybeType is costly!)
+	 * @see org.as3.mvcsc.vo.PropertiesCollection
+	 * 
+	 * @param object
+	 * @return 
+	 * 
+	 * @author Mario Vieira
+	 */	
 	public class DescribeObject
 	{
+		/**
+		 * 
+		 */
 		public static const VARIABLE : String = "variable";
+		/**
+		 * 
+		 */
 		public static const CONSTANT : String = "constant";
 		
+		/**
+		 * 
+		 * 
+		 */
 		public function DescribeObject(){}
 		
-		/** 
-		 * 
-		 * Returns the object constants of a given Class or Object. Note that it should be cached as descrybeType is costly!
+		/**
 		 * 
 		 * @param object
 		 * @return 
@@ -25,11 +44,24 @@ package org.as3.mvcsc.utils
 			return getObjectMember(object, CONSTANT);
 		}
 		
+		/**
+		 * 
+		 * @param object
+		 * @return 
+		 * 
+		 */
 		public static function getObjectVariables(object:Object):PropertiesCollection
 		{
 			return getObjectMember(object, VARIABLE);
 		}
 		
+		/**
+		 * 
+		 * @param object
+		 * @param memberType
+		 * @return 
+		 * 
+		 */
 		public static function getObjectMember(object:Object, memberType:String):PropertiesCollection
 		{
 			var collection:PropertiesCollection = new PropertiesCollection();

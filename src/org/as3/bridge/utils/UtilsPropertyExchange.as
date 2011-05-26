@@ -6,9 +6,10 @@ package org.as3.bridge.utils
 	import org.robotlegs.core.IInjector;
 
 	/** 
-	 * @author Mario Vieira
 	 * 
-	 * Exchange properties from a Cairngorm Model to a Dependency Injection Model
+	 * Exchange properties from a Cairngorm ModelLocators to injector based Models
+	 * 
+	 * @author Mario Vieira
 	 * 
 	 */
 	public class UtilsPropertyExchange

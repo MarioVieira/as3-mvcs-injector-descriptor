@@ -12,8 +12,22 @@ package org.as3.mvcsc.utils
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
 
+	/**
+	 * 
+	 * 
+	 * Assists in mapping injection, mediator, and signal commands rules
+	 * 
+	 * @author Mario Vieira
+	 */
 	public class UtilsMapping
 	{
+		/**
+		 * 
+		 * @param whenAskedFor
+		 * @param useClass
+		 * @return 
+		 * 
+		 */
 		public static function getInjectorRule(whenAskedFor:Class, useClass:Class = null):DescriptorInjector
 		{
 			var injectorRule:DescriptorInjector = new DescriptorInjector();
@@ -31,6 +45,12 @@ package org.as3.mvcsc.utils
 			return injectorRule;
 		}
 		
+		/**
+		 * 
+		 * @param injector
+		 * @param externalInjectorDescriptors
+		 * 
+		 */
 		public static function mapInjectorDescriptorRule(injector:IInjector, externalInjectorDescriptors:Vector.<DescriptorInjector>):void
 		{
 			for each(var descriptor:DescriptorInjector in externalInjectorDescriptors)
@@ -39,6 +59,12 @@ package org.as3.mvcsc.utils
 			}
 		}
 		
+		/**
+		 * 
+		 * @param injector
+		 * @param descriptor
+		 * 
+		 */
 		public static function mapInjectorRule(injector:IInjector, descriptor:DescriptorInjector):void
 		{
 			if(descriptor.whenAskedForQName && descriptor.useSingletonOfQName) 
@@ -52,6 +78,12 @@ package org.as3.mvcsc.utils
 			
 		}
 		
+		/**
+		 * 
+		 * @param signalCommandMap
+		 * @param externalInjectorDescriptors
+		 * 
+		 */
 		public static function mapSignalCommandDescriptorRules(signalCommandMap:ISignalCommandMap, externalInjectorDescriptors:Vector.<DescriptorSignalCommand>):void
 		{
 			for each(var descriptor:DescriptorSignalCommand in externalInjectorDescriptors)
@@ -60,6 +92,12 @@ package org.as3.mvcsc.utils
 			}
 		}
 		
+		/**
+		 * 
+		 * @param mediatorMap
+		 * @param externalInjectorDescriptors
+		 * 
+		 */
 		public static function mapMediatorDescriptorRules(mediatorMap:IMediatorMap, externalInjectorDescriptors:Vector.<DescriptorMediator>):void
 		{
 			for each(var descriptor:DescriptorMediator in externalInjectorDescriptors)
@@ -68,11 +106,23 @@ package org.as3.mvcsc.utils
 			}
 		}
 		
+		/**
+		 * 
+		 * @param qName
+		 * @return 
+		 * 
+		 */
 		public static function getClassFromQName(qName:String):Class
 		{
 			return getDefinitionByName(qName) as Class;
 		}
 		
+		/**
+		 * 
+		 * @param cairngormDescriptor
+		 * @return 
+		 * 
+		 */
 		public static function getInjectorDescriptorFromCairngormEventDescriptor(cairngormDescriptor:DescriptorCairngormEventMap):DescriptorInjector
 		{
 			var descriptor:DescriptorInjector = new DescriptorInjector();

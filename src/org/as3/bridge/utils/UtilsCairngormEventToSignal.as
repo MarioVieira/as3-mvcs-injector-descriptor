@@ -13,11 +13,23 @@ package org.as3.bridge.utils
 	import org.osflash.signals.ISignalOwner;
 	import org.robotlegs.core.IInjector;
 
+	
 	/**
-	 * @private
+	 * 
+	 * Assists in routing Cairngorm events to value object to be broadcastied via Signals
+	 * 
+	 * @author Mario Vieira
+	 * 
 	 */
 	public class UtilsCairngormEventToSignal
 	{
+		/**
+		 * 
+		 * @param cairngormEvent
+		 * @param cairngormEventRules
+		 * @return 
+		 * 
+		 */
 		public static function getVoClassToReceiveCairngormEventProperties(cairngormEvent:*, cairngormEventRules:Vector.<DescriptorCairngormEventMap>):Class
 		{
 			for each(var descriptor:DescriptorCairngormEventMap in cairngormEventRules)
@@ -31,6 +43,13 @@ package org.as3.bridge.utils
 			return null;
 		}
 		
+		/**
+		 * 
+		 * @param event
+		 * @param cairngormEventRules
+		 * @return 
+		 * 
+		 */
 		public static function getSignalQNameOfCairngormEvent(event:*, cairngormEventRules:Vector.<DescriptorCairngormEventMap>):String
 		{
 			for each(var descriptor:DescriptorCairngormEventMap in cairngormEventRules)
@@ -44,6 +63,13 @@ package org.as3.bridge.utils
 			return null;
 		}
 		
+		/**
+		 * 
+		 * @param event
+		 * @param cairngormEventRules
+		 * @return 
+		 * 
+		 */
 		public static function getCairngormEventDescriptor(event:CairngormEvent, cairngormEventRules:Vector.<DescriptorCairngormEventMap>):DescriptorCairngormEventMap
 		{
 			for each(var descriptor:DescriptorCairngormEventMap in cairngormEventRules)
@@ -54,11 +80,25 @@ package org.as3.bridge.utils
 			return null;
 		}
 		
+		/**
+		 * 
+		 * @param injector
+		 * @param eventDescriptor
+		 * @return 
+		 * 
+		 */
 		public static function getInjectedSignalFromCairngormEventDescriptor(injector:IInjector, eventDescriptor:DescriptorCairngormEventMap):ISignalOwner
 		{
 			return injector.getInstance( getDefinitionByName( eventDescriptor.signalClassQName ) as Class );
 		}
 		
+		/**
+		 * 
+		 * @param collection
+		 * @param valueObjectClassQName
+		 * @return 
+		 * 
+		 */
 		public static function getValueObjectWithPropertyCollectionValues(collection : PropertiesCollection, valueObjectClassQName:String) : *
 		{
 			if(valueObjectClassQName)

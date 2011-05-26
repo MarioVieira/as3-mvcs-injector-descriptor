@@ -9,27 +9,50 @@ package org.as3.mvcsc.utils
 	
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.interfaces.IDispose;
-	import org.as3.mvcsc.model.BackgroundProcesses;
-	import org.as3.mvcsc.model.CairngormBridge;
-	import org.as3.mvcsc.model.Commands;
-	import org.as3.mvcsc.model.Controls;
-	import org.as3.mvcsc.model.Models;
-	import org.as3.mvcsc.model.Services;
-	import org.as3.mvcsc.model.Views;
+	import org.as3.mvcsc.vo.BackgroundProcesses;
+	import org.as3.mvcsc.vo.CairngormBridge;
+	import org.as3.mvcsc.vo.Commands;
+	import org.as3.mvcsc.vo.Controls;
+	import org.as3.mvcsc.vo.Models;
 	import org.as3.mvcsc.vo.PropertiesCollection;
 	import org.as3.mvcsc.vo.PropertyInfo;
+	import org.as3.mvcsc.vo.Services;
+	import org.as3.mvcsc.vo.Views;
 	import org.as3.serializer.utils.Serializer;
 	import org.osflash.signals.Signal;
 
+	/**
+	 * 
+	 * 
+	 * Loads the XML external application frame-work descriptor, serializes it into its respective object types, and broadcasts them
+	 * 
+	 * @author Mario Vieira
+	 */
 	public class UtilsDescriptorLoader extends Signal implements IDispose
 	{
+		/** private ***/
 		protected var _descriptorsXMLClasses			:Array = [Models, Views, Controls, Services, Commands, BackgroundProcesses, CairngormBridge];
+		
+		/** private ***/
 		protected var _currentXMLIndex					:int;
+		
+		/** private ***/ 
 		protected var _appFrameWorkExternalDescriptor	:DescriptorExternalAppFrameWork;
+		
+		/** private ***/
 		protected var _xmlLoader						:URLLoader;
+		
+		/** private ***/
 		protected var _appFrameWorkVariables			:PropertiesCollection;
+		
+		/** private ***/
 		protected var _uniqueAppId:int;
 		
+		/**
+		 * 
+		 * @param uniqueAppId
+		 * 
+		 */
 		public function UtilsDescriptorLoader(uniqueAppId:int)
 		{
 			super(DescriptorExternalAppFrameWork);
@@ -37,6 +60,7 @@ package org.as3.mvcsc.utils
 			init();
 		}
 		
+		/** private ***/
 		protected function init():void
 		{
 			//NOT HANDLING ERRORS - WE NEED THE ERRORRS TO KNOW IF XMLS ARE NOT LOADED
@@ -48,6 +72,11 @@ package org.as3.mvcsc.utils
 			_appFrameWorkVariables	= DescribeObject.getObjectVariables( _appFrameWorkExternalDescriptor );
 		}
 
+		/**
+		 * 
+		 * @param descriptorsXMLArray
+		 * 
+		 */
 		public function loadExternalAppFrameWorkDescriptor(descriptorsXMLArray:Array = null):void
 		{
 			if(descriptorsXMLArray) _descriptorsXMLClasses = descriptorsXMLArray;
@@ -55,6 +84,7 @@ package org.as3.mvcsc.utils
 			loadNextXML();
 		}
 		
+		/** private ***/
 		protected function loadNextXML():void
 		{
 			if(!isQueueConcluded()) 
@@ -68,17 +98,24 @@ package org.as3.mvcsc.utils
 			}
 		}
 		
+		/** private ***/
 		protected function loadXML(url:String):void
 		{
 			_xmlLoader.load(new URLRequest(url));
 		}
 		
+		/** private ***/
 		protected function onNextXML(e:Event):void
 		{
 			setDescriptorRules( XML(URLLoader(e.target).data) );
 			loadNextXML();
 		}
 	
+		/**
+		 * 
+		 * @param description
+		 * 
+		 */
 		protected function setDescriptorRules(description:XML):void
 		{
 			//leaving to check cause if nothing is loaded, it should be null
@@ -88,27 +125,36 @@ package org.as3.mvcsc.utils
 			_appFrameWorkExternalDescriptor[getXMLRespectivePropertyInFrameWorkDescriptor(serializedObject)] = serializedObject;
 		}
 		
+		/** private ***/
 		protected function getCurrentXMLUrl():String
 		{
 			return getFileName(_descriptorsXMLClasses[_currentXMLIndex], _uniqueAppId);
 		}
 		
+		/** private ***/
 		protected function isQueueConcluded():Boolean
 		{
 			return (_currentXMLIndex == _descriptorsXMLClasses.length);
 		}
 		
+		/**
+		 * 
+		 * Send the XMLs loaded as serialzed objects
+		 * 
+		 */
 		protected function send():void
 		{
 			//Tracer.log(this, "send");
 			dispatch(_appFrameWorkExternalDescriptor);
 		}
 		
+		/** private ***/
 		protected function reset():void
 		{
 			_currentXMLIndex = 0;
 		}
 		
+		/** private ***/
 		protected function getXMLRespectivePropertyInFrameWorkDescriptor(deserializedObject:*):String
 		{
 			for each(var propInfo:PropertyInfo in _appFrameWorkVariables.propertyInfoArray)
@@ -119,17 +165,23 @@ package org.as3.mvcsc.utils
 			return null;
 		}
 		
+		/** private ***/
 		protected function getFileName(clazz:Class, uniqueId:int):String
 		{
 			return UtilsGetAppFrameWorkExtenalDescriptor.getFileName(clazz, uniqueId);
 		}
 		
+		/** private ***/
 		protected function onXMLError(event:Event):void
 		{
 			Tracer.log(this, " ¡ ERROR LOADING EXTERNAL APPLICATION DESCRIPTOR ! (app://"+ getFileName(_descriptorsXMLClasses[_currentXMLIndex -1], _uniqueAppId) + ")");
 			loadNextXML();
 		}
 		
+		/**
+		 * 
+		 * 
+		 */
 		public function dispose():void
 		{
 			_xmlLoader.removeEventListener(Event.COMPLETE, onNextXML);

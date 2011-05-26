@@ -4,8 +4,18 @@ package org.as3.mvcsc.interfaces
 	
 	import org.robotlegs.core.ISignalCommandMap;
 
+	/**
+	 * 
+	 * @author Mario Vieira
+	 * 
+	 */
 	public interface IMappingSignalCommand
 	{
+		/**
+		 * 
+		 * @param signalCommandMap
+		 * 
+		 */
 		function mapSignalCommands(signalCommandMap:ISignalCommandMap):void;
 	}
 }

@@ -8,20 +8,48 @@ package org.as3.mvcsc.descriptors
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
 
+	/**
+	 * 
+	 * The application MVCS Command and Background Processes descriptor for injection mapping
+	 * 
+	 * @author Mario Vieira 
+	 * 
+	 */
 	public class DescriptorAppFrameWork
 	{
+		/**
+		 * 
+		 */
 		public var uniqueAppId					: int;
 		
+		/**
+		 * 
+		 */
 		public var modelsMapping 				: IMappingInjector;
 		
+		/**
+		 * 
+		 */
 		public var viewsMapping 				: IMappingMediator;
 		
+		/**
+		 * 
+		 */
 		public var controlsMapping 				: IMappingInjector;
 		
+		/**
+		 * 
+		 */
 		public var servicesMapping 				: IMappingInjector;
 		
+		/**
+		 * 
+		 */
 		public var commandsMapping	 			: IMappingSignalCommand;
 		
+		/**
+		 * 
+		 */
 		public var backgroundProcessesMapping 	: IMappingBackgroundProcesses;
 	}
 }

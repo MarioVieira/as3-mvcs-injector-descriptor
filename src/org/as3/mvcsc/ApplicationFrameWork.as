@@ -6,20 +6,22 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
-	import org.as3.mvcsc.model.Commands;
-	import org.as3.mvcsc.model.Controls;
-	import org.as3.mvcsc.model.Models;
-	import org.as3.mvcsc.model.Services;
-	import org.as3.mvcsc.model.Views;
+	import org.as3.mvcsc.vo.Commands;
+	import org.as3.mvcsc.vo.Controls;
+	import org.as3.mvcsc.vo.Models;
+	import org.as3.mvcsc.vo.Services;
+	import org.as3.mvcsc.vo.Views;
 	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
 	
 	/** 
-	 * @author Mario Vieira
 	 * 
-	 * Thi class executes the mapping for Model, View, Controls, Services, Commands, and Background Processes
+	 * Based on SwiftSuspenders, Signals, and Robotlegs thi class executes the mapping for Model, View, Controls, Services, Commands, and Background Processes
+	 * It does so based on compiled time descriptors, and XML descriptors serialized into typed objects
+	 * 
+	 * @author Mario Vieira
 	 * 
 	 */
 	public class ApplicationFrameWork

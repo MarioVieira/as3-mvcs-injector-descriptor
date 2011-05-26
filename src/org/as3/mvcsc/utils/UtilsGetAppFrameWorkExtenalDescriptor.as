@@ -1,23 +1,43 @@
 package org.as3.mvcsc.utils
 {
-	import org.as3.mvcsc.model.BackgroundProcesses;
-	import org.as3.mvcsc.model.CairngormBridge;
-	import org.as3.mvcsc.model.Commands;
-	import org.as3.mvcsc.model.Controls;
-	import org.as3.mvcsc.model.Models;
-	import org.as3.mvcsc.model.Services;
-	import org.as3.mvcsc.model.Views;
+	import org.as3.mvcsc.vo.BackgroundProcesses;
+	import org.as3.mvcsc.vo.CairngormBridge;
+	import org.as3.mvcsc.vo.Commands;
+	import org.as3.mvcsc.vo.Controls;
+	import org.as3.mvcsc.vo.Models;
+	import org.as3.mvcsc.vo.Services;
+	import org.as3.mvcsc.vo.Views;
 	import org.as3.serializer.helpers.ObjectDescriptor;
 	import org.as3.serializer.utils.Serializer;
 	
+	/**
+	 * 
+	 * 
+	 * Generates the external XML MVCS Commands descriptors
+	 * 
+	 * @author Mario Vieira
+	 */
 	public class UtilsGetAppFrameWorkExtenalDescriptor
 	{
 		
+		/**
+		 * 
+		 * @param object
+		 * @param uniqueId
+		 * @return 
+		 * 
+		 */
 		public static function getFileName(object:*, uniqueId:int):String
 		{
 			return "descriptors/"+ObjectDescriptor.getClassConstructor(object) + "_" +uniqueId+".xml";
 		}
 		
+		/**
+		 * 
+		 * @param folderName
+		 * @param uniqueId
+		 * 
+		 */
 		public static function createExternalDescriptorXMLsInDesktop(folderName:String = null, uniqueId:int = 0):void
 		{
 			var modelRules					:Models 			  = UtilsGetDefaultDescriptor.getDefaultModelRules();

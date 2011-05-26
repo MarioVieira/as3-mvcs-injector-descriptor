@@ -3,12 +3,14 @@ package org.as3.bridge.commands
 	import com.adobe.cairngorm.commands.ICommand;
 	import com.adobe.cairngorm.control.CairngormEvent;
 	
-	import org.as3.bridge.helpers.Bridge;
+	import org.as3.bridge.core.Bridge;
 	
 	/**
 	 * 
-	 * Routes mapped Cairngorm Events / Commands to an static reference to support the task of loosing coupling
-	 * the application components and features from the static references of Cairngorm
+	 * Routes Cairngorm Commands execution to a static reference of ControlCommandHandler
+	 * @see org.as3.bridge.control.CommandHandler
+	 * 
+	 * @author Mario Vieira
 	 * 
 	 */	
 	public class CommandRouter implements ICommand
@@ -20,8 +22,8 @@ package org.as3.bridge.commands
 		 */		
 		public function execute(event:CairngormEvent):void
 		{
-			var wimpControl:Bridge = Bridge.getInstance();
-			wimpControl.cairngormCommandHandler.handleCairngormCommand(event);
+			var handler:Bridge = Bridge.getInstance();
+			handler.cairngormCommandHandler.handleCairngormCommand(event);
 		}
 	}
 }
