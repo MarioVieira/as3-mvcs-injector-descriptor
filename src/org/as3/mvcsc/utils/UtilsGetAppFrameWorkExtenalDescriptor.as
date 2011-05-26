@@ -1,5 +1,7 @@
 package org.as3.mvcsc.utils
 {
+	import org.as3.mvcsc.descriptors.DescriptorAppFrameWork;
+	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
 	import org.as3.mvcsc.vo.CairngormBridge;
 	import org.as3.mvcsc.vo.Commands;
@@ -38,22 +40,14 @@ package org.as3.mvcsc.utils
 		 * @param uniqueId
 		 * 
 		 */
-		public static function createExternalDescriptorXMLsInDesktop(folderName:String = null, uniqueId:int = 0):void
+		public static function createExternalDescriptorXMLsInDesktop(applicationDescriptor:DescriptorExternalAppFrameWork, uniqueId:int = 0):void
 		{
-			var modelRules					:Models 			  = UtilsGetDefaultDescriptor.getDefaultModelRules();
-			var viewRules					:Views 			  	  = UtilsGetDefaultDescriptor.getDefaultViewRules();
-			var controlRules				:Controls 			  = UtilsGetDefaultDescriptor.getDefaultControlRules();
-			var serviceRules				:Services 			  = UtilsGetDefaultDescriptor.getDefaultServiceRules();
-			var signalCommandRules			:Commands 	 		  = UtilsGetDefaultDescriptor.getDefaultSignalCommandRules();
-			var backgroundProcessesRules	:BackgroundProcesses  = UtilsGetDefaultDescriptor.getDefaultBackgroundProcesses();
-			var cairngormEventsRules		:CairngormBridge	  = UtilsGetDefaultDescriptor.getDefaultCairngormEventRules();
-			
-			WriteFile.saveUTF8FileToDesktop( getFileName(modelRules, uniqueId), Serializer.serializeValueObjectIntoXML( modelRules ), folderName, "");
-			WriteFile.saveUTF8FileToDesktop( getFileName(viewRules, uniqueId), Serializer.serializeValueObjectIntoXML( viewRules ), folderName , "");
-			WriteFile.saveUTF8FileToDesktop( getFileName(controlRules, uniqueId), Serializer.serializeValueObjectIntoXML( controlRules ), folderName , "");
-			WriteFile.saveUTF8FileToDesktop( getFileName(serviceRules, uniqueId), Serializer.serializeValueObjectIntoXML( serviceRules ), folderName , "");
-			WriteFile.saveUTF8FileToDesktop( getFileName(signalCommandRules, uniqueId), Serializer.serializeValueObjectIntoXML( signalCommandRules ), folderName , "");
-			WriteFile.saveUTF8FileToDesktop( getFileName(cairngormEventsRules, uniqueId), Serializer.serializeValueObjectIntoXML( cairngormEventsRules ), folderName , "");
+			WriteFile.saveUTF8FileToDesktop( getFileName(applicationDescriptor.modelRules, uniqueId), Serializer.serializeValueObjectIntoXML( applicationDescriptor.modelRules ), "");
+			WriteFile.saveUTF8FileToDesktop( getFileName(applicationDescriptor.viewRules, uniqueId), Serializer.serializeValueObjectIntoXML( applicationDescriptor.viewRules ), "");
+			WriteFile.saveUTF8FileToDesktop( getFileName(applicationDescriptor.controlRules, uniqueId), Serializer.serializeValueObjectIntoXML( applicationDescriptor.controlRules ), "");
+			WriteFile.saveUTF8FileToDesktop( getFileName(applicationDescriptor.serviceRules, uniqueId), Serializer.serializeValueObjectIntoXML( applicationDescriptor.serviceRules ), "");
+			WriteFile.saveUTF8FileToDesktop( getFileName(applicationDescriptor.signalCommandRules, uniqueId), Serializer.serializeValueObjectIntoXML( applicationDescriptor.signalCommandRules ), "");
+			WriteFile.saveUTF8FileToDesktop( getFileName(applicationDescriptor.cairngormEventsRules, uniqueId), Serializer.serializeValueObjectIntoXML( applicationDescriptor.cairngormEventsRules ), "");
 			//WriteFile.saveUTF8FileToDesktop( getFileName(backgroundProcessesRules), Serializer.serializeValueObjectIntoXML( backgroundProcessesRules ), folderName );
 		}
 	}
