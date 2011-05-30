@@ -18,7 +18,7 @@ package org.as3.mvcsc.utils
 	import org.as3.mvcsc.vo.PropertyInfo;
 	import org.as3.mvcsc.vo.Services;
 	import org.as3.mvcsc.vo.Views;
-	import org.as3.serializer.utils.Serializer;
+	import org.as3.serializer.Serializer;
 	import org.osflash.signals.Signal;
 
 	/**
@@ -121,7 +121,7 @@ package org.as3.mvcsc.utils
 			//leaving to check cause if nothing is loaded, it should be null
 			
 			
-			var serializedObject:* = Serializer.deserializeXMLIntoValueObject( description );
+			var serializedObject:* = Serializer.deserialize( description );
 			_appFrameWorkExternalDescriptor[getXMLRespectivePropertyInFrameWorkDescriptor(serializedObject)] = serializedObject;
 		}
 		

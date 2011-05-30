@@ -25,7 +25,8 @@ package org.as3.mvcsc
 		 * @return  
 		 * 
 		 */
-		[Bindable] public var applicationFrameWorkDescriptor:DescriptorAppFrameWork; 
+		[Bindable] public var applicationFrameWorkDescriptor : DescriptorAppFrameWork; 
+		[Bindable] public var useExternalXMLDescriptors		 : Boolean = true; 
 		
 		/**
 		 * @private
@@ -49,7 +50,8 @@ package org.as3.mvcsc
 		override public function startup() : void
 		{
 			setupCore();
-			loadExternalFrameWorkDescriptors();
+			if(useExternalXMLDescriptors) loadExternalFrameWorkDescriptors();
+			else 						  setupApplicationFrameWork(applicationFrameWorkDescriptor, null);						  
 		}
 		
 		/** 
