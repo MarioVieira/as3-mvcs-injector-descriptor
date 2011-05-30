@@ -9,7 +9,7 @@ package org.as3.bridge.utils
 	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.as3.mvcsc.vo.PropertiesCollection;
 	import org.as3.mvcsc.vo.PropertyInfo;
-	import org.as3.serializer.factories.ObjectFactory;
+	import org.as3.serializer.utils.GetTypedObject;
 	import org.osflash.signals.ISignalOwner;
 	import org.robotlegs.core.IInjector;
 
@@ -103,7 +103,7 @@ package org.as3.bridge.utils
 		{
 			if(valueObjectClassQName)
 			{
-				var valueObject:* = ObjectFactory.getDataTypedObject(valueObjectClassQName);
+				var valueObject:* = GetTypedObject.getDataTypedObject(valueObjectClassQName);
 				for each(var info:PropertyInfo in collection.propertyInfoVector)
 				{
 					try{ valueObject[info.name] = info.value; }
@@ -115,7 +115,7 @@ package org.as3.bridge.utils
 			}
 			else
 			{
-				Tracer.log(UtilsCairngormEventToSignal, "See CairngormBridge.xml: No value object class provided to produce a it via a PropertiesCollection (CairngormEvent to Signal)");
+				Tracer.log(UtilsCairngormEventToSignal, "See CairngormBridge_ID.xml: No value object class provided to receive CairngormEvent properties");
 			}
 			
 			return valueObject;
