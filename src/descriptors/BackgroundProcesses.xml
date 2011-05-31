@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<serializer xmlns:serializer="library://org.as3.serializer">
+  <BackgroundProcesses type="org.as3.mvcsc.vo::BackgroundProcesses">
+    <descriptorCollection type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorBackgroundProcess>">
+    
+    </descriptorCollection>
+  </BackgroundProcesses>
+</serializer>

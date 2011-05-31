@@ -1,0 +1,23 @@
+<serializer xmlns:serializer="library://org.as3.serializer">
+  <Views type="org.as3.mvcsc.vo::Views">
+    <descriptorCollection type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorMediator>">
+      <!-- 
+      <DescriptorMediator type="org.as3.mvcsc.descriptors::DescriptorMediator">
+        <mapViewQName type="String">com.amp.wimp.phase2.view.components::ComponentDownloader</mapViewQName>
+        <mediatorQName type="String">com.amp.wimp.phase2.view.mediator::MediatorDownloader</mediatorQName>
+        <autoRemove type="Boolean">true</autoRemove>
+        <autoCreate type="Boolean">true</autoCreate>
+        <injectViewAsQName type="String"/>
+      </DescriptorMediator>
+      <DescriptorMediator type="org.as3.mvcsc.descriptors::DescriptorMediator">
+        <mapViewQName type="String">com.amp.wimp.phase2.view.components::ComponentGenreScreen</mapViewQName>
+        <mediatorQName type="String">com.amp.wimp.phase2.view.mediator::MediatorGenreScreen</mediatorQName>
+        <autoRemove type="Boolean">true</autoRemove>
+        <autoCreate type="Boolean">true</autoCreate>
+        <injectViewAsQName type="String"/>
+      </DescriptorMediator>
+      -->
+      
+    </descriptorCollection>
+  </Views>
+</serializer>

@@ -1,0 +1,19 @@
+<serializer xmlns:serializer="library://org.as3.serializer">
+  <CairngormBridge type="org.as3.mvcsc.vo::CairngormBridge">
+    <descriptorCollection type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorCairngormEventMap>">
+      <DescriptorCairngormEventMap type="org.as3.mvcsc.descriptors::DescriptorCairngormEventMap">
+        <signalClassQName type="String">com.amp.wimp.phase2.signals::SignalGetPurchasedTracks</signalClassQName>
+        <cairngormEventType type="String">GetPurchasedTracks</cairngormEventType>
+        <valueObjectQNameToReceiveEventProperties type="String">com.amp.wimp.phase2.vo::VOGetPurchasedTracks</valueObjectQNameToReceiveEventProperties>
+        <cairngormEventQName type="String">com.amp.wimp.events::GetPurchasedTracksEvent</cairngormEventQName>
+      </DescriptorCairngormEventMap>
+    </descriptorCollection>
+    <cairngornModelLocators type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorCairngormModelLocator>">
+      <DescriptorCairngormModelLocator type="org.as3.mvcsc.descriptors::DescriptorCairngormModelLocator">
+        <nick type="String">playerModel</nick>
+        <modelLocatorQName type="String">com.amp.wimp.model::PlayerModelLocator</modelLocatorQName>
+        <uid type="uint">1</uid>
+      </DescriptorCairngormModelLocator>
+    </cairngornModelLocators>
+  </CairngormBridge>
+</serializer>

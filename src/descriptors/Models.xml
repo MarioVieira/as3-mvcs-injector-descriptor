@@ -1,0 +1,29 @@
+<serializer xmlns:serializer="library://org.as3.serializer">
+  <Models type="org.as3.mvcsc.vo::Models">
+    <descriptorCollection type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorInjector>">
+      <!-- 
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String">com.amp.wimp.phase2.model::ModelUserInfo</mapSingletonQName>
+        <useSingletonOfQName type="String"/>
+        <whenAskedForQName type="String"/>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String">com.amp.wimp.phase2.model::ModelRemoteServiceStatus</mapSingletonQName>
+        <useSingletonOfQName type="String"/>
+        <whenAskedForQName type="String"/>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String">com.amp.wimp.phase2.model::ModelDownloads</mapSingletonQName>
+        <useSingletonOfQName type="String"/>
+        <whenAskedForQName type="String"/>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String">com.amp.wimp.phase2.model::ModelGenrePage</mapSingletonQName>
+        <useSingletonOfQName type="String"/>
+        <whenAskedForQName type="String"/>
+      </DescriptorInjector>
+      -->
+      
+    </descriptorCollection>
+  </Models>
+</serializer>

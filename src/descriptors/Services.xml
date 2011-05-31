@@ -1,0 +1,34 @@
+<serializer xmlns:serializer="library://org.as3.serializer">
+  <Services type="org.as3.mvcsc.vo::Services">
+    <descriptorCollection type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorInjector>">
+      <!-- 
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String">com.amp.wimp.phase2.remote.services::ServiceLogger</mapSingletonQName>
+        <useSingletonOfQName type="String"/>
+        <whenAskedForQName type="String"/>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String"/>
+        <useSingletonOfQName type="String">com.amp.wimp.phase2.remote.services::ServiceLayout</useSingletonOfQName>
+        <whenAskedForQName type="String">com.amp.wimp.phase2.remote.interfaces::IServiceLayout</whenAskedForQName>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String"/>
+        <useSingletonOfQName type="String">com.amp.wimp.phase2.remote.services::ServiceDownload</useSingletonOfQName>
+        <whenAskedForQName type="String">com.amp.wimp.phase2.remote.interfaces::IServiceDownload</whenAskedForQName>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String"/>
+        <useSingletonOfQName type="String">com.amp.wimp.phase2.remote.services::ServiceGenreInfo</useSingletonOfQName>
+        <whenAskedForQName type="String">com.amp.wimp.phase2.remote.interfaces::IServiceGenreInfo</whenAskedForQName>
+      </DescriptorInjector>
+      <DescriptorInjector type="org.as3.mvcsc.descriptors::DescriptorInjector">
+        <mapSingletonQName type="String"/>
+        <useSingletonOfQName type="String">com.amp.wimp.phase2.remote.services::ServicePageInfo</useSingletonOfQName>
+        <whenAskedForQName type="String">com.amp.wimp.phase2.remote.interfaces::IServicePagesInfo</whenAskedForQName>
+      </DescriptorInjector>
+      -->
+      
+    </descriptorCollection>
+  </Services>
+</serializer>
