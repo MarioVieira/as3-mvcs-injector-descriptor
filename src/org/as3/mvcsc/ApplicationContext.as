@@ -72,7 +72,7 @@ package org.as3.mvcsc
 		 */
 		protected function loadExternalFrameWorkDescriptors():void
 		{
-			_loadExternalDescriptor = new UtilsDescriptorLoader( (applicationFrameWorkDescriptor) ? applicationFrameWorkDescriptor.uniqueAppId : 0 );
+			_loadExternalDescriptor = new UtilsDescriptorLoader( applicationFrameWorkDescriptor.descriptorFolderName );
 			_loadExternalDescriptor.addOnce(onExternalFrameWorkDescriptorLoaded);
 			_loadExternalDescriptor.loadExternalAppFrameWorkDescriptor();
 		}

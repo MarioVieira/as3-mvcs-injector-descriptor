@@ -46,17 +46,17 @@ package org.as3.mvcsc.utils
 		protected var _appFrameWorkVariables			:PropertiesCollection;
 		
 		/** private ***/
-		protected var _uniqueAppId:int;
+		protected var _filesFolderName:String;
 		
 		/**
 		 * 
 		 * @param uniqueAppId
 		 * 
 		 */
-		public function UtilsDescriptorLoader(uniqueAppId:int)
+		public function UtilsDescriptorLoader(folderName:String)
 		{
 			super(DescriptorExternalAppFrameWork);
-			_uniqueAppId = uniqueAppId;
+			_filesFolderName = folderName;
 			init();
 		}
 		
@@ -128,7 +128,7 @@ package org.as3.mvcsc.utils
 		/** private ***/
 		protected function getCurrentXMLUrl():String
 		{
-			return getFileName(_descriptorsXMLClasses[_currentXMLIndex], _uniqueAppId);
+			return getFileName(_descriptorsXMLClasses[_currentXMLIndex], _filesFolderName);
 		}
 		
 		/** private ***/
@@ -166,15 +166,15 @@ package org.as3.mvcsc.utils
 		}
 		
 		/** private ***/
-		protected function getFileName(clazz:Class, uniqueId:int):String
+		protected function getFileName(clazz:Class, folderName:String):String
 		{
-			return UtilsGetAppFrameWorkExtenalDescriptor.getFileName(clazz, uniqueId);
+			return UtilsGetAppFrameWorkExtenalDescriptor.getFileName(clazz, folderName);
 		}
 		
 		/** private ***/
 		protected function onXMLError(event:Event):void
 		{
-			Tracer.log(this, " ¡ ERROR LOADING EXTERNAL APPLICATION DESCRIPTOR ! (app://"+ getFileName(_descriptorsXMLClasses[_currentXMLIndex -1], _uniqueAppId) + ")");
+			Tracer.log(this, " ¡ ERROR LOADING EXTERNAL APPLICATION DESCRIPTOR ! (app://"+ getFileName(_descriptorsXMLClasses[_currentXMLIndex -1], _filesFolderName) + ")");
 			loadNextXML();
 		}
 		

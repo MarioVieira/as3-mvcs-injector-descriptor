@@ -3,15 +3,16 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.descriptors.DescriptorAppFrameWork;
 	import org.as3.mvcsc.descriptors.DescriptorCore;
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
+	import org.as3.mvcsc.interfaces.IMappingBackgroundProcesses;
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
+	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.as3.mvcsc.vo.Commands;
 	import org.as3.mvcsc.vo.Controls;
 	import org.as3.mvcsc.vo.Models;
 	import org.as3.mvcsc.vo.Services;
 	import org.as3.mvcsc.vo.Views;
-	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
@@ -56,7 +57,7 @@ package org.as3.mvcsc
 				//3rd - don't rely on any injection rules
 				mapServices(appFrameWorkDescriptor.servicesMapping, coreDescriptor.injector);
 				//4th - relies on 1st, 2nd, and 3rd
-				mapControls(appFrameWorkDescriptor.controlsMapping, coreDescriptor.injector);
+				mapControls(appFrameWorkDescriptor.controlsMapping, appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector);
 				//5th - relies on 1st, 2nd, and 3rd
 				mapViews(appFrameWorkDescriptor.viewsMapping, coreDescriptor.mediatorMap);
 				
@@ -73,7 +74,7 @@ package org.as3.mvcsc
 				//3rd - don't rely on any injection rules
 				mapExternalServices(coreDescriptor.injector, appFrameWorkDescriptor.servicesMapping, externalAppFrameWorkDescriptor.serviceRules);
 				//4th - relies on 1st, 2nd, and 3rd
-				appFrameWorkDescriptor.backgroundProcessesMapping.initialize(coreDescriptor.injector, externalAppFrameWorkDescriptor);
+				appFrameWorkDescriptor.backgroundProcessesMapping.initializeExternalBackgroundProcesses(coreDescriptor.injector, externalAppFrameWorkDescriptor);
 				//5th - relies on 1st, 2nd, and 3rd
 				mapExternalControls(coreDescriptor.injector, appFrameWorkDescriptor.controlsMapping, externalAppFrameWorkDescriptor.controlRules);
 				//6th - relies on all
@@ -147,9 +148,10 @@ package org.as3.mvcsc
 		 * @param injector
 		 * 
 		 */		
-		protected function mapControls(controlsMapping:IMappingInjector, injector:IInjector):void
+		protected function mapControls(controlsMapping:IMappingInjector, backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector):void
 		{
 			controlsMapping.mapRules(injector);
+			backgrounProcessesMapping.initializeBackgroundProcesses(injector)
 		}
 
 		/**

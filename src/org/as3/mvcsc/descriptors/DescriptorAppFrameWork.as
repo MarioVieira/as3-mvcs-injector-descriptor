@@ -20,7 +20,7 @@ package org.as3.mvcsc.descriptors
 		/**
 		 * 
 		 */
-		public var uniqueAppId					: int;
+		public var descriptorFolderName			: String = "";
 		
 		/**
 		 * 
