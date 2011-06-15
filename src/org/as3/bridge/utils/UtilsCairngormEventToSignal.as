@@ -10,7 +10,7 @@ package org.as3.bridge.utils
 	import org.as3.mvcsc.vo.PropertiesCollection;
 	import org.as3.mvcsc.vo.PropertyInfo;
 	import org.as3.serializer.utils.GetTypedObject;
-	import org.osflash.signals.ISignalOwner;
+	import org.osflash.signals.ISignal;
 	import org.robotlegs.core.IInjector;
 
 	
@@ -87,7 +87,7 @@ package org.as3.bridge.utils
 		 * @return 
 		 * 
 		 */
-		public static function getInjectedSignalFromCairngormEventDescriptor(injector:IInjector, eventDescriptor:DescriptorCairngormEventMap):ISignalOwner
+		public static function getInjectedSignalFromCairngormEventDescriptor(injector:IInjector, eventDescriptor:DescriptorCairngormEventMap):ISignal
 		{
 			return injector.getInstance( getDefinitionByName( eventDescriptor.signalClassQName ) as Class );
 		}

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
-  <includeClasses/>
+  <includeClasses>
+    <classEntry path="org.as3.mvcsc.utils.UtilsMapAdditionalViewRules"/>
+    <classEntry path="org.as3.bridge.core.IoCModel"/>
+    <classEntry path="org.as3.mvcsc.utils.UtilsProcesses"/>
+  </includeClasses>
   <includeResources/>
   <namespaceManifests/>
 </flexLibProperties>

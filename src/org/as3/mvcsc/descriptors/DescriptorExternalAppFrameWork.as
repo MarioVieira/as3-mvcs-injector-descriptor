@@ -20,30 +20,30 @@ package org.as3.mvcsc.descriptors
 		/**
 		 * 
 		 */
-		[Serialize] public var modelRules				:Models;
+		public var modelRules				:Models;
 		/**
 		 * 
 		 */
-		[Serialize] public var viewRules				:Views;
+		public var viewRules				:Views;
 		/**
 		 * 
 		 */
-		[Serialize] public var controlRules				:Controls;
+		public var controlRules				:Controls;
 		/**
 		 * 
 		 */
-		[Serialize] public var serviceRules				:Services;
+		public var serviceRules				:Services;
 		/**
 		 * 
 		 */
-		[Serialize] public var signalCommandRules		:Commands;
+		public var signalCommandRules		:Commands;
 		/**
 		 * 
 		 */
-		[Serialize] public var backgroundProcessesRules	:BackgroundProcesses;
+		public var backgroundProcesses		:BackgroundProcesses;
 		/**
 		 * 
 		 */
-		[Serialize] public var cairngormEventsRules		:CairngormBridge;
+		public var cairngormEventsRules		:CairngormBridge;
 	}
 }

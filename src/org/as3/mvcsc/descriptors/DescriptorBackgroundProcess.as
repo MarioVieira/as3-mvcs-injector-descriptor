@@ -1,26 +1,24 @@
 package org.as3.mvcsc.descriptors
 {
+	import org.as3.interfaces.IBackgroundProcess;
+
 	/**
 	 * 
-	 * Background Processes descriptor for injection mapping
+	 * Background Processes descriptor, also place where the instance will be held
 	 * 
 	 * @author Mario Vieira 
 	 * 
 	 */
 	public class DescriptorBackgroundProcess
 	{
+		/**
+		 * 
+		 */ 
+		public var processQNameIBackgroundProcess	: String;
 		
 		/**
 		 * 
 		 */
-		[Serialize] public var backgroundServiceInterfaceQName	:String;
-		/**
-		 * 
-		 */
-		[Serialize] public var executeInjection					:Boolean = true;
-		/**
-		 * 
-		 */
-		[Serialize] public var executeSignalCommandMapping		:Boolean = true;
+		public var data								: Object;
 	}
 }
