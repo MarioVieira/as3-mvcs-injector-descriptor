@@ -7,7 +7,7 @@ package org.as3.mvcsc
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
-	import org.robotlegs.mvcs.SignalContext;
+	import org.robotlegs.mvcs.SignalContextInit;
 	
 	/**
 	 * 
@@ -17,7 +17,7 @@ package org.as3.mvcsc
 	 * @author Mario Vieira
 	 * 
 	 */	
-	public class ApplicationContext extends SignalContext
+	public class ApplicationContext extends SignalContextInit
 	{
 		/**
 		 * 
