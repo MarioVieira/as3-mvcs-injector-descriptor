@@ -14,7 +14,7 @@ package org.as3.bridge.commands
 	 * 
 	 */	
 	public class CommandRouter implements ICommand
-	{
+	{  
 		/**
 		 * 
 		 * @param event Any CairngormEvent to be propagated through the CairngormCommandHandler

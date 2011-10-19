@@ -6,6 +6,7 @@ package org.as3.bridge.core
 	import org.as3.mvcsc.descriptors.DescriptorCairngormEventMap;
 	import org.as3.mvcsc.utils.DescribeObject;
 	import org.as3.mvcsc.vo.PropertiesCollection;
+	import org.robotlegs.core.IInitializer;
 	import org.robotlegs.core.IInjector;
 
 	/** 
@@ -20,23 +21,23 @@ package org.as3.bridge.core
 	 * @author Mario Vieira
 	 * 
 	 */
-	public class CairngormCommandToSignal
+	public class CairngormCommandToSignal implements IInitializer
 	{
 		/**
-		 * The application injector 
+		 * @private 
 		 */		
-		[Inject]
-		public var injector:IInjector;
+		protected var _injector		:IInjector;
 		
 		/**
 		 * @private
 		 */
-		protected var _bridge 					:	Bridge;
+		protected var _bridge 		:Bridge;
 	
 		/** private **/
-		[PostConstruct]
-		public function init():void
+		public function init(injector:IInjector):void
 		{
+			_injector = injector;
+			
 			setupInstances();
 			observeCairngormCommandHandler();
 		}	
@@ -110,7 +111,7 @@ package org.as3.bridge.core
 			var valueObjectWithCairngormEventProperties:*	= UtilsCairngormEventToSignal.getValueObjectWithPropertyCollectionValues(eventProperties, eventDescriptor.valueObjectQNameToReceiveEventProperties);
 			
 			//Tracer.log(this, "eventDescriptor - eventDescriptor: "+eventDescriptor+" valueObjectWithCairngormEventProperties: "+valueObjectWithCairngormEventProperties);
-			UtilsCairngormEventToSignal.getInjectedSignalFromCairngormEventDescriptor(injector, eventDescriptor).dispatch(valueObjectWithCairngormEventProperties);
+			UtilsCairngormEventToSignal.getInjectedSignalFromCairngormEventDescriptor(_injector, eventDescriptor).dispatch(valueObjectWithCairngormEventProperties);
 		}
 	}
 }

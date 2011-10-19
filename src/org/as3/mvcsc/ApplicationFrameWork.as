@@ -7,6 +7,7 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
+	import org.as3.mvcsc.task.TaskInit;
 	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.as3.mvcsc.vo.Commands;
 	import org.as3.mvcsc.vo.Controls;
@@ -59,6 +60,8 @@ package org.as3.mvcsc
 				//4th - relies on 1st, 2nd, and 3rd
 				mapControls(appFrameWorkDescriptor.controlsMapping, appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector);
 				//5th - relies on 1st, 2nd, and 3rd
+				initializeBackgroundProcesses(appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector);
+				//5th - relies on 1st, 2nd, and 3rd
 				mapViews(appFrameWorkDescriptor.viewsMapping, coreDescriptor.mediatorMap);
 				
 				trace('\n');
@@ -73,12 +76,12 @@ package org.as3.mvcsc
 				mapExternalModels(coreDescriptor.injector, appFrameWorkDescriptor.modelsMapping, externalAppFrameWorkDescriptor.modelRules);
 				//3rd - don't rely on any injection rules
 				mapExternalServices(coreDescriptor.injector, appFrameWorkDescriptor.servicesMapping, externalAppFrameWorkDescriptor.serviceRules);
-				//4th - relies on 1st, 2nd, and 3rd
-				appFrameWorkDescriptor.backgroundProcessesMapping.initializeExternalBackgroundProcesses(coreDescriptor.injector, externalAppFrameWorkDescriptor);
 				//5th - relies on 1st, 2nd, and 3rd
 				mapExternalControls(coreDescriptor.injector, appFrameWorkDescriptor.controlsMapping, externalAppFrameWorkDescriptor.controlRules);
 				//6th - relies on all
 				mapExternalViews(coreDescriptor.mediatorMap, appFrameWorkDescriptor.viewsMapping, externalAppFrameWorkDescriptor.viewRules);
+				//4th - relies on 1st, 2nd, and 3rd
+				initializeExternalBackgroundProcesses(appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector, externalAppFrameWorkDescriptor, appFrameWorkDescriptor.startupSequence);
 				
 				trace("------------------------ EXTERNAL APPLICATION FRAME WORK MAPPED ---------------- \n\n");
 			}
@@ -151,7 +154,31 @@ package org.as3.mvcsc
 		protected function mapControls(controlsMapping:IMappingInjector, backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector):void
 		{
 			controlsMapping.mapRules(injector);
-			backgrounProcessesMapping.initializeBackgroundProcesses(injector)
+		}
+		
+		
+		/**
+		 * 
+		 * @param backgroundProcessesMapping
+		 * @param injector
+		 * 
+		 */
+		protected function initializeBackgroundProcesses(backgroundProcessesMapping:IMappingBackgroundProcesses, injector:IInjector):void
+		{
+			backgroundProcessesMapping.initializeBackgroundProcesses(injector);
+		}
+		
+		/**
+		 * 
+		 * @param backgrounProcessesMapping
+		 * @param injector
+		 * @param appFrameWorkDescriptor
+		 * 
+		 */		
+		protected function initializeExternalBackgroundProcesses(backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork, startupSequence:Vector.<TaskInit>):void
+		{
+			backgrounProcessesMapping.initializeExternalBackgroundProcesses(injector, appFrameWorkDescriptor);
+			backgrounProcessesMapping.initializeStartupSequence(injector, startupSequence);
 		}
 
 		/**

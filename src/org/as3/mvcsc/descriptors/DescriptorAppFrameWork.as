@@ -4,9 +4,7 @@ package org.as3.mvcsc.descriptors
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
-	import org.robotlegs.core.IInjector;
-	import org.robotlegs.core.IMediatorMap;
-	import org.robotlegs.core.ISignalCommandMap;
+	import org.as3.mvcsc.task.TaskInit;
 
 	/**
 	 * 
@@ -51,5 +49,10 @@ package org.as3.mvcsc.descriptors
 		 * 
 		 */
 		public var backgroundProcessesMapping 	: IMappingBackgroundProcesses;
+		
+		/**
+		 * 
+		 */
+		public var startupSequence				: Vector.<TaskInit>;
 	}
 }

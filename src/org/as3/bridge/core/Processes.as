@@ -7,6 +7,7 @@ package org.as3.bridge.core
 	import org.as3.mvcsc.descriptors.DescriptorBackgroundProcess;
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.interfaces.IMappingBackgroundProcesses;
+	import org.as3.mvcsc.task.TaskInit;
 	import org.as3.mvcsc.utils.Tracer;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
 	import org.robotlegs.core.IInjector;
@@ -78,6 +79,11 @@ package org.as3.bridge.core
 		}
 
 		public function initializeExternalBackgroundProcesses(injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
+		{
+			// TODO Auto-generated method stub
+		}
+		
+		public function initializeStartupSequence(injector:IInjector, sequence:Vector.<TaskInit>):void
 		{
 			// TODO Auto-generated method stub
 		}

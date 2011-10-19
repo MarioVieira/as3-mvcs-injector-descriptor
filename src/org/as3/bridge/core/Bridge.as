@@ -156,7 +156,7 @@ package org.as3.bridge.core
 		{
 			var clazz:* = getModelLocatorClass(nickName);
 			try{ return clazz.getInstance(); }
-			catch(er:Error){ Tracer.log(this, er.toString()); }
+			catch(er:Error){ Tracer.log(this, "Could not find ModelLocator: "+nickName+"  "+er.toString()); }
 			
 			return null;
 		}

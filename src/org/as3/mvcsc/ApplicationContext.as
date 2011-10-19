@@ -38,7 +38,7 @@ package org.as3.mvcsc
 		 */
 		
 		protected var _appFrameWork				:ApplicationFrameWork;
-		/**
+		/**  
 		 * @private 
 		 */
 		protected var _loadExternalDescriptor	:UtilsDescriptorLoader;

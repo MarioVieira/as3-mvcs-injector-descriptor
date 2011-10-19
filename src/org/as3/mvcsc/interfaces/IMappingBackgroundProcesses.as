@@ -1,6 +1,7 @@
 package org.as3.mvcsc.interfaces
 {
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
+	import org.as3.mvcsc.task.TaskInit;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
 	import org.robotlegs.core.IInjector;
 
@@ -26,5 +27,13 @@ package org.as3.mvcsc.interfaces
 		 * 
 		 */
 		function initializeExternalBackgroundProcesses(injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork):void;
+		
+		/**
+		 * 
+		 * @param injector
+		 * @param appFrameWorkDescriptor
+		 * 
+		 */
+		function initializeStartupSequence(injector:IInjector, sequence:Vector.<TaskInit>):void;
 	}
 }
