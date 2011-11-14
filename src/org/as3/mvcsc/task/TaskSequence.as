@@ -5,21 +5,23 @@ package org.as3.mvcsc.task
 	import flash.utils.Timer;
 	
 	import org.as3.interfaces.IDispose;
+	import org.as3.mvcsc.interfaces.ITask;
 	import org.as3.mvcsc.utils.Tracer;
 	import org.osflash.signals.Signal;
 	import org.robotlegs.core.IInjector;
 	
 	public class TaskSequence extends Signal implements IDispose
 	{
-		protected var _injector			:IInjector;
-		protected var _currentTask		:TaskInit;
-		protected var _tasks			:Vector.<TaskInit>;
-		protected var _currentTaskCount	:int;
-		protected var _taskTimer		:Timer;
+		protected var _injector					:IInjector;
+		protected var _currentTask				:ITask;
+		protected var _tasks					:Vector.<ITask>;
+		protected var _currentTaskCount			:int;
+		protected var _taskTimer				:Timer;
+		protected var _simultaneousNotSequential:Boolean; 
 		
-		public function TaskSequence(taskTimeout:Number = 60000)
+		public function TaskSequence(taskTimeout:Number = 60000, simultaneousNotSequential:Boolean = true)
 		{
-			_tasks 		= new Vector.<TaskInit>;	
+			_tasks 		= new Vector.<ITask>;
 			_taskTimer 	= new Timer(taskTimeout);
 		}
 		
@@ -28,15 +30,30 @@ package org.as3.mvcsc.task
 			_taskTimer.addEventListener(TimerEvent.TIMER, onTaskTimeout);
 		}
 		
-		public function addTask(task:TaskInit):void
+		/**
+		 *
+		 * Adds tasks to the a first sequence
+		 *  
+		 * @param task
+		 * 
+		 */		
+		public function addTask(task:ITask):void
 		{
 			_currentTaskCount = 0;
 			_tasks.push(task);
 		}
 		
-		public function addTasks(tasks:Vector.<TaskInit>):void
+		/**
+		 *
+		 * Adds a sequence of tasks for execution
+		 *  
+		 * @param task
+		 * 
+		 */
+		
+		public function addTasks(tasks:Vector.<ITask>):void
 		{
-			_tasks 		 = tasks;
+			_tasks 			  = tasks;
 			_currentTaskCount = 0;
 		}
 		
@@ -44,7 +61,22 @@ package org.as3.mvcsc.task
 		{
 			_injector = injector;
 			setObservers();
-			startNextTask();
+			if(!_simultaneousNotSequential)
+			{
+				startNextTask();
+			}
+			else
+			{
+				fireAllTasks();
+			}
+		}
+		
+		private function fireAllTasks():void
+		{
+			for each(var task:ITask in _tasks)
+			{
+				task.start(_injector);
+			}
 		}
 		
 		protected function complete():void
@@ -57,10 +89,11 @@ package org.as3.mvcsc.task
 		protected function startNextTask():void
 		{
 			_currentTask = getNextTask();
+			
 			if(_currentTask) 
 			{
 				_currentTaskCount++;
-				_currentTask.addOnce(onTaskExecuted);
+				_currentTask.notifier.add(onTaskExecuted);
 				_currentTask.start(_injector);
 				startTimer();
 			}
@@ -87,7 +120,7 @@ package org.as3.mvcsc.task
 			startNextTask();
 		}
 		
-		protected function getNextTask():TaskInit
+		protected function getNextTask():ITask
 		{
 			if(_currentTaskCount < _tasks.length) 
 				return _tasks[_currentTaskCount];
@@ -102,7 +135,8 @@ package org.as3.mvcsc.task
 		
 		protected function removeTaskObserver():void
 		{
-			if(_currentTask) _currentTask.remove(onTaskExecuted);
+			if(_currentTask) 
+				_currentTask.notifier.remove(onTaskExecuted);
 		}
 		
 		private function onTaskTimeout(e:Event):void
