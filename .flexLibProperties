@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
-  <includeClasses/>
+  <includeClasses>
+    <classEntry path="org.as3.mvcsc.interfaces.ITask"/>
+    <classEntry path="org.as3.mvcs.interfaces.INotifier"/>
+    <classEntry path="org.as3.mvcsc.vo.StartupSequence"/>
+    <classEntry path="org.as3.mvcsc.vo.TaskSequencesVO"/>
+    <classEntry path="org.as3.mvcsc.vo.TaskSequenceVO"/>
+  </includeClasses>
   <includeResources/>
   <namespaceManifests/>
 </flexLibProperties>

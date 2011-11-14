@@ -19,7 +19,7 @@
 		<link>
 			<name>bin-debug</name>
 			<type>2</type>
-			<location>/GitReps/WiMP_GenericLibs_Flex/WiMP_GenericLibs_Flex/libs</location>
+			<location>/GitReps/Aspiro/WiMP_GenericLibs_Flex/libs</location>
 		</link>
 	</linkedResources>
 </projectDescription>
