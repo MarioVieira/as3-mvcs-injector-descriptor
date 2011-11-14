@@ -4,6 +4,7 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.descriptors.DescriptorCore;
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.utils.UtilsDescriptorLoader;
+	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
@@ -14,8 +15,8 @@ package org.as3.mvcsc
 	 * MVCS Command and Background Processes application context
 	 * It takes descriptions for the mapping in compile time (descriptor object) and run time (XML seralized into typed object)
 	 * 
-	 * @author Mario Vieira
-	 * 
+	 * @author Mario Vieira 
+	 *   
 	 */	
 	public class ApplicationContext extends SignalContextInit
 	{
@@ -63,7 +64,7 @@ package org.as3.mvcsc
 		{
 			injector.mapValue(IInjector, injector);
 			injector.mapValue(ISignalCommandMap, signalCommandMap);
-			injector.mapValue(IMediatorMap, mediatorMap);
+			injector.mapValue(IMediatorMap, mediatorMap); 
 		}
 		
 		/**
@@ -75,7 +76,7 @@ package org.as3.mvcsc
 			_loadExternalDescriptor = new UtilsDescriptorLoader( applicationFrameWorkDescriptor.descriptorFolderName );
 			_loadExternalDescriptor.addOnce(onExternalFrameWorkDescriptorLoaded);
 			_loadExternalDescriptor.loadExternalAppFrameWorkDescriptor();
-		}
+		}  
   
 		/**
 		 * 
@@ -86,6 +87,7 @@ package org.as3.mvcsc
 		{
 			_loadExternalDescriptor.dispose();  
 			setupApplicationFrameWork(applicationFrameWorkDescriptor, externalAppFrameWorkDescriptor);
+			dispatchEvent(new ContextEvent(ContextEvent.STARTUP_COMPLETE));
 		}
 		      
 		/**

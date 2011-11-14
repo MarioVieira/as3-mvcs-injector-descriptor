@@ -7,12 +7,14 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
-	import org.as3.mvcsc.task.TaskInit;
+	import org.as3.mvcsc.interfaces.ITask;
+	import org.as3.mvcsc.task.Task;
 	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.as3.mvcsc.vo.Commands;
 	import org.as3.mvcsc.vo.Controls;
 	import org.as3.mvcsc.vo.Models;
 	import org.as3.mvcsc.vo.Services;
+	import org.as3.mvcsc.vo.StartupSequence;
 	import org.as3.mvcsc.vo.Views;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
@@ -175,7 +177,7 @@ package org.as3.mvcsc
 		 * @param appFrameWorkDescriptor
 		 * 
 		 */		
-		protected function initializeExternalBackgroundProcesses(backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork, startupSequence:Vector.<TaskInit>):void
+		protected function initializeExternalBackgroundProcesses(backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork, startupSequence:StartupSequence):void
 		{
 			backgrounProcessesMapping.initializeExternalBackgroundProcesses(injector, appFrameWorkDescriptor);
 			backgrounProcessesMapping.initializeStartupSequence(injector, startupSequence);
