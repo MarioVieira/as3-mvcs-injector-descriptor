@@ -11,7 +11,7 @@ package org.as3.bridge.core
 	import org.as3.mvcsc.task.Task;
 	import org.as3.mvcsc.utils.Tracer;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
-	import org.as3.mvcsc.vo.StartupSequence;
+	import org.as3.mvcsc.vo.TasksSet;
 	import org.robotlegs.core.IInjector;
 
 	/**
@@ -85,7 +85,7 @@ package org.as3.bridge.core
 			// TODO Auto-generated method stub
 		}
 		
-		public function initializeStartupSequence(injector:IInjector, startupSequence:StartupSequence):void
+		public function initializeStartupSequence(injector:IInjector, startupSequence:TasksSet):void
 		{
 			// TODO Auto-generated method stub
 		}

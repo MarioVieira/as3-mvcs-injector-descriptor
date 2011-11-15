@@ -51,8 +51,11 @@ package org.as3.mvcsc
 		override public function startup() : void
 		{
 			setupCore();
-			if(useExternalXMLDescriptors) loadExternalFrameWorkDescriptors();
-			else 						  setupApplicationFrameWork(applicationFrameWorkDescriptor, null);						  
+			
+			if(useExternalXMLDescriptors) 
+				loadExternalFrameWorkDescriptors();
+			else 						  
+				setupApplicationFrameWork(applicationFrameWorkDescriptor, null);						  
 		}
 		
 		/** 

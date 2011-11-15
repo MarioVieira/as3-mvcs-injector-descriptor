@@ -6,7 +6,7 @@ package org.as3.mvcsc.descriptors
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
 	import org.as3.mvcsc.interfaces.ITask;
 	import org.as3.mvcsc.task.Task;
-	import org.as3.mvcsc.vo.StartupSequence;
+	import org.as3.mvcsc.vo.TasksSet;
 
 	/**
 	 * 
@@ -55,6 +55,6 @@ package org.as3.mvcsc.descriptors
 		/**
 		 * 
 		 */
-		public var startupSequence				: StartupSequence;
+		public var startupSequence				: TasksSet;
 	}
 }
