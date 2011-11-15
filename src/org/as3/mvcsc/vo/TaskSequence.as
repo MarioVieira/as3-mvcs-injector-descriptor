@@ -2,13 +2,20 @@ package org.as3.mvcsc.vo
 {
 	import org.as3.mvcsc.interfaces.ITask;
 	
-	public class TaskSequenceVO
+	public class TaskSequence
 	{
-		private var _sequence:Vector.<ITask>;
+		private var _sequence					:Vector.<ITask>;
+		private var _simultaneousNotSequential	:Boolean;
 		
-		public function TaskSequenceVO()
+		public function TaskSequence(simultaneousNotSequential:Boolean)
 		{
+			_simultaneousNotSequential = simultaneousNotSequential;
 			_sequence = new Vector.<ITask>;
+		}
+		
+		public function get simultaneousNotSequential():Boolean
+		{
+			return _simultaneousNotSequential;
 		}
 		
 		public function addTaskToSequence(task:ITask):void
