@@ -16,16 +16,14 @@ package org.as3.mvcsc.task
 	{
 		protected var _injector					:IInjector;
 		protected var _currentTask				:ITask;
-		protected var _tasks					:Vector.<ITask>;
+		protected var _tasks					:TaskSequence;
 		protected var _currentTaskCount			:int;
 		protected var _taskTimer				:Timer;
-		protected var _simultaneousNotSequential:Boolean;
 		
 		private var _notifier:Signal;
 		
 		public function TasksExecuter(taskTimeout:Number = 60000)
 		{
-			_tasks 		= new Vector.<ITask>;
 			_taskTimer 	= new Timer(taskTimeout);
 			_notifier   = new Signal();
 		}
@@ -57,11 +55,13 @@ package org.as3.mvcsc.task
 		
 		public function startSequence(sequence:TaskSequence, injector:IInjector):void
 		{
-			Tracer.log(this, "startSequence - simultaneousNotSequential: "+_simultaneousNotSequential);
+			_tasks = sequence;
+			Tracer.log(this, "startSequence - sequence.simultaneousNotSequential: "+sequence.simultaneousNotSequential);
+			
 			_injector = injector;
 			setObservers();
 			
-			if(!_simultaneousNotSequential)
+			if(!sequence.simultaneousNotSequential)
 			{
 				startNextTask();
 			}
@@ -73,7 +73,7 @@ package org.as3.mvcsc.task
 		
 		private function fireAllTasks():void
 		{
-			for each(var task:ITask in _tasks)
+			for each(var task:ITask in _tasks.sequence)
 			{
 				task.start(_injector);
 			}
@@ -83,7 +83,7 @@ package org.as3.mvcsc.task
 		
 		protected function complete():void
 		{
-			Tracer.log(this, "complete()");
+			//Tracer.log(this, "complete()");
 			success();
 			dispose();
 		}
@@ -91,6 +91,7 @@ package org.as3.mvcsc.task
 		protected function startNextTask():void
 		{
 			_currentTask = getNextTask();
+			//Tracer.log(this, "startNextTask() - _currentTask: "+_currentTask);
 			
 			if(_currentTask) 
 			{
@@ -116,15 +117,13 @@ package org.as3.mvcsc.task
 			_taskTimer.stop();
 		}
 		
-		
 		protected function getNextTask():ITask
 		{
 			if(_currentTaskCount < _tasks.length) 
-				return _tasks[_currentTaskCount];
+				return _tasks.getTask(_currentTaskCount);
 			
 			return null;
 		}
-
 		
 		protected function removeTaskObserver():void
 		{

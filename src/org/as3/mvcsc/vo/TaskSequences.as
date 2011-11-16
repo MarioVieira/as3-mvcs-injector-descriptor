@@ -9,20 +9,13 @@ package org.as3.mvcsc.vo
 		public function TaskSequences()
 		{
 			_sequences = new Vector.<TaskSequence>;
-			
-			initializeFirstSequence();
-		}
-		
-		private function initializeFirstSequence():void
-		{
-			addSequence( new Vector.<TaskSequence> );
 		}
 		
 		public function addSequence(vo:TaskSequence):void
 		{
 			_sequences.push(vo);
 		}
-		
+		  
 		public function getSequence(index:int):TaskSequence
 		{
 			return _sequences[index];
