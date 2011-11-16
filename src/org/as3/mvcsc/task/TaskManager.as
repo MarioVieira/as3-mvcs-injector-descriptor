@@ -13,13 +13,20 @@ package org.as3.mvcsc.task
 		
 		private var _taskSet			:TasksSet;
 		private var _currentSequence	:int;
+		private var _started			:Boolean;
 		
 		public function TaskManager(){}
 		
 		public function executeTaskSet(taskSet:TasksSet, injector:IInjector):void
 		{
+			_started = true;
 			_taskSet = taskSet;
 			executeSequenciesSimultaneously(taskSet, injector);
+		}
+		
+		public function get started():Boolean
+		{
+			return _started;
 		}
 		
 		private function executeSequenciesSimultaneously(taskSet:TasksSet, injector:IInjector):void
