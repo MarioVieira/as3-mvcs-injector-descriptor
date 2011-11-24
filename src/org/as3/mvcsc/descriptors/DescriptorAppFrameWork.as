@@ -5,8 +5,8 @@ package org.as3.mvcsc.descriptors
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
 	import org.as3.mvcsc.interfaces.ITask;
-	import org.as3.mvcsc.task.Task;
-	import org.as3.mvcsc.vo.TasksSet;
+	import org.as3.mvcsc.task.TaskBase;
+	import org.as3.mvcsc.task.TasksSet;
 
 	/**
 	 * 

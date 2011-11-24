@@ -12,8 +12,9 @@ package org.as3.bridge.control
 	
 	/**
 	 * 
-	 * It <code>addCairngormCommands</code> and <code>mapCommandSignal</code> of those Commands
+	 * It <code>addCairngormCommands</code> to CommandRouter via protected <code>mapSignal</code> method (converts an event into a Signal)
 	 * @see org.as3.mvcsc.model.CairngormBridge
+	 * @see org.as3.bridge.commands.CommandRouter
 	 * 
 	 * @author Mario Vieira
 	 * 
@@ -32,20 +33,24 @@ package org.as3.bridge.control
 			//Loop through and add commands
 			for each(var item:DescriptorCairngormEventMap in descriptor.descriptorCollection)
 			{
-				mapCommandSignal(item,injector);
+				mapSignal(item,injector);
+				Tracer.log(RouteCairngormCommands, "addCairngormCommands - cairngormEventQName: "+item.cairngormEventQName);
 				addCommand(item.cairngormEventType, CommandRouter);
 			}
 		}
 
-		/**
+		/**  
 		 * 
 		 * @param item
 		 * @param injector
 		 * 
 		 */
-		protected function mapCommandSignal(item:DescriptorCairngormEventMap, injector:IInjector):void
+		protected function mapSignal(item:DescriptorCairngormEventMap, injector:IInjector):void
 		{
-			Tracer.log(RouteCairngormCommands, "addCairngormCommands - cairngormEventQName: "+item.cairngormEventQName);
+			if(!item.mapSignalClass)
+				return;
+			
+			Tracer.log(RouteCairngormCommands, "mapSignal - signalClassQName: "+item.signalClassQName);
 			UtilsMapping.mapInjectorRule(injector, UtilsMapping.getInjectorDescriptorFromCairngormEventDescriptor(item));
 		}
 	}

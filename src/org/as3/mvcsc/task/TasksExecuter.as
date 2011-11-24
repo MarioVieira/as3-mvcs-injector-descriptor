@@ -5,10 +5,9 @@ package org.as3.mvcsc.task
 	import flash.utils.Timer;
 	
 	import org.as3.interfaces.IDispose;
-	import org.as3.mvcs.interfaces.INotifier;
+	import org.as3.mvcsc.interfaces.INotifier;
 	import org.as3.mvcsc.interfaces.ITask;
 	import org.as3.mvcsc.utils.Tracer;
-	import org.as3.mvcsc.vo.TaskSequence;
 	import org.osflash.signals.Signal;
 	import org.robotlegs.core.IInjector;
 	
@@ -56,23 +55,38 @@ package org.as3.mvcsc.task
 		public function startSequence(sequence:TaskSequence, injector:IInjector):void
 		{
 			_tasks = sequence;
-			Tracer.log(this, "startSequence - sequence.simultaneousNotSequential: "+sequence.simultaneousNotSequential);
-			
 			_injector = injector;
 			setObservers();
 			
-			if(!sequence.simultaneousNotSequential)
-			{
-				startNextTask();
-			}
-			else
+			var hasTaskExecutedUponPropertyChange:Boolean = isAnyTaskExecutedUponPropertyChange(_tasks)
+				
+			//Tracer.log(this, "startSequence - sequence.simultaneousNotSequential: "+sequence.simultaneousNotSequential+" hasTaskExecutedUponPropertyChange: "+hasTaskExecutedUponPropertyChange);
+				
+			if(hasTaskExecutedUponPropertyChange || sequence.simultaneousNotSequential)
 			{
 				fireAllTasks();
 			}
+			else
+			{
+				startNextTask();
+			}
+		}
+		
+		private function isAnyTaskExecutedUponPropertyChange(tasks:TaskSequence):Boolean
+		{
+			for each (var task:ITask in tasks.sequence) 
+			{
+				if(task.descriptor.executeTaskUponPropertyChange)
+					return true;
+			}
+			
+			return false;
 		}
 		
 		private function fireAllTasks():void
 		{
+			Tracer.log(this, "fireAllTasks()");
+			
 			for each(var task:ITask in _tasks.sequence)
 			{
 				task.start(_injector);
@@ -91,7 +105,7 @@ package org.as3.mvcsc.task
 		protected function startNextTask():void
 		{
 			_currentTask = getNextTask();
-			//Tracer.log(this, "startNextTask() - _currentTask: "+_currentTask);
+			Tracer.log(this, "startNextTask() - _currentTask: "+_currentTask);
 			
 			if(_currentTask) 
 			{

@@ -2,7 +2,7 @@ package org.as3.mvcsc.interfaces
 {
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
-	import org.as3.mvcsc.vo.TasksSet;
+	import org.as3.mvcsc.task.TasksSet;
 	import org.robotlegs.core.IInjector;
 
 	/**

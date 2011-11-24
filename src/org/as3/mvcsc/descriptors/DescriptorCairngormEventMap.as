@@ -11,18 +11,22 @@ package org.as3.mvcsc.descriptors
 		/**
 		 * 
 		 */
-		[Serialize] public var valueObjectQNameToReceiveEventProperties	:String;
+		public var valueObjectQNameToReceiveEventProperties	:String;
+		
+		
+		public var mapSignalClass							:Boolean;
+		
 		/**
 		 * 
 		 */
-		[Serialize] public var cairngormEventQName						:String;
+		public var cairngormEventQName						:String;
 		/**
 		 * 
 		 */
-		[Serialize] public var cairngormEventType						:String;
+		public var cairngormEventType						:String;
 		/**
 		 * 
 		 */
-		[Serialize] public var signalClassQName							:String;
+		public var signalClassQName							:String;
 	}	
 }

@@ -22,10 +22,10 @@ package org.as3.mvcsc.vo
 		/**
 		 * 
 		 */
-		[Serialize] public var descriptorCollection   : Vector.<DescriptorCairngormEventMap>;
+		public var descriptorCollection   : Vector.<DescriptorCairngormEventMap>;
 		/**
 		 * 
 		 */
-		[Serialize] public var cairngornModelLocators : Vector.<DescriptorCairngormModelLocator>; 
+		public var cairngornModelLocators : Vector.<DescriptorCairngormModelLocator>; 
 	}
 }

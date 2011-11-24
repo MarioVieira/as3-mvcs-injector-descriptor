@@ -1,10 +1,11 @@
 package org.as3.mvcsc.interfaces
 {
+	import org.as3.mvcsc.task.TaskDescriptor;
 	import org.robotlegs.core.IInjector;
-	import org.as3.mvcs.interfaces.INotifier;
 
 	public interface ITask extends INotifier
 	{
 		function start(injector:IInjector):void;
+		function get descriptor():TaskDescriptor;
 	}
 }

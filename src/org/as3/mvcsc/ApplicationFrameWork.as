@@ -8,13 +8,13 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
 	import org.as3.mvcsc.interfaces.ITask;
-	import org.as3.mvcsc.task.Task;
+	import org.as3.mvcsc.task.TaskBase;
 	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.as3.mvcsc.vo.Commands;
 	import org.as3.mvcsc.vo.Controls;
 	import org.as3.mvcsc.vo.Models;
 	import org.as3.mvcsc.vo.Services;
-	import org.as3.mvcsc.vo.TasksSet;
+	import org.as3.mvcsc.task.TasksSet;
 	import org.as3.mvcsc.vo.Views;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;

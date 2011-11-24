@@ -2,6 +2,7 @@
   <CairngormBridge type="org.as3.mvcsc.vo::CairngormBridge">
     <descriptorCollection type="__AS3__.vec::Vector.&lt;org.as3.mvcsc.descriptors::DescriptorCairngormEventMap>">
       <DescriptorCairngormEventMap type="org.as3.mvcsc.descriptors::DescriptorCairngormEventMap">
+        <mapSignalClass type="Boolean">true</mapSignalClass>
         <signalClassQName type="String">com.amp.wimp.phase2.signals::SignalGetPurchasedTracks</signalClassQName>
         <cairngormEventType type="String">GetPurchasedTracks</cairngormEventType>
         <valueObjectQNameToReceiveEventProperties type="String">com.amp.wimp.phase2.vo::VOGetPurchasedTracks</valueObjectQNameToReceiveEventProperties>

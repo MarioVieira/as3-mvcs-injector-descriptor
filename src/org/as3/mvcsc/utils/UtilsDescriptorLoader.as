@@ -8,7 +8,7 @@ package org.as3.mvcsc.utils
 	import flash.utils.getQualifiedClassName;
 	
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
-	import org.as3.mvcsc.interfaces.IDispose;
+	import org.as3.interfaces.IDispose;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
 	import org.as3.mvcsc.vo.CairngormBridge;
 	import org.as3.mvcsc.vo.Commands;
@@ -182,7 +182,7 @@ package org.as3.mvcsc.utils
 		 * 
 		 * 
 		 */
-		public function dispose():void
+		public function dispose(recursive:Boolean=true):void
 		{
 			_xmlLoader.removeEventListener(Event.COMPLETE, onNextXML);
 			_appFrameWorkExternalDescriptor = null;

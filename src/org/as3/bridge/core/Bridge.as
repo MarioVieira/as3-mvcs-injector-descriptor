@@ -175,7 +175,8 @@ package org.as3.bridge.core
 			{
 				for each(var modelInfo:DescriptorCairngormModelLocator in cairgormBridgeDescriptor.cairngornModelLocators)
 				{
-					if(modelInfo.nick == nickName) 	classQName = modelInfo.modelLocatorQName;
+					if(modelInfo.nick == nickName) 	
+						classQName = modelInfo.modelLocatorQName;
 				}
 			}
 			
