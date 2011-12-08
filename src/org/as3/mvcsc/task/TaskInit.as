@@ -10,7 +10,7 @@ package org.as3.mvcsc.task
 	 * 
 	 * @author Mario Vieira
 	 * 
-	 */	
+	 */	 
 	public class TaskInit extends Signal implements IInitializer
 	{
 		public function TaskInit() 

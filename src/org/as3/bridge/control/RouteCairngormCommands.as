@@ -32,7 +32,9 @@ package org.as3.bridge.control
 			//Loop through and add commands
 			for each(var item:DescriptorCairngormEventMap in descriptor.descriptorCollection)
 			{
-				mapCommandSignal(item,injector);
+				if(item.mapSignalClass) 
+					mapCommandSignal(item,injector);
+				
 				addCommand(item.cairngormEventType, CommandRouter);
 			}
 		}

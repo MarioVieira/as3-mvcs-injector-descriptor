@@ -50,8 +50,9 @@ package org.as3.bridge.control
 		 */		
 		public function addCommandMappedFromEvent(event:CairngormEvent):void
 		{
-			Tracer.log(this, 'addCommandMappedFromEvent '+event);
-			_commands.push(event);
+			//Tracer.log(this, 'addCommandMappedFromEvent '+event);
+			//need to come back here 
+			//_commands.push(event);
 		}
 		
 		/**
@@ -80,7 +81,7 @@ package org.as3.bridge.control
 		/** @private **/
 		protected function removeCommandIndex(index:int):void
 		{
-			Tracer.log(this, 'removeCommandIndex '+_commands);
+			//Tracer.log(this, 'removeCommandIndex '+_commands);
 			_commands.slice(index, 1);										  
 		}
 	}

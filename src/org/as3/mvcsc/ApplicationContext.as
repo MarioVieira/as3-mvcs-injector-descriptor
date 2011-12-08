@@ -4,6 +4,7 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.descriptors.DescriptorCore;
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.utils.UtilsDescriptorLoader;
+	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
@@ -86,6 +87,7 @@ package org.as3.mvcsc
 		{
 			_loadExternalDescriptor.dispose();  
 			setupApplicationFrameWork(applicationFrameWorkDescriptor, externalAppFrameWorkDescriptor);
+			dispatchEvent(new ContextEvent(ContextEvent.STARTUP_COMPLETE));
 		}
 		      
 		/**
