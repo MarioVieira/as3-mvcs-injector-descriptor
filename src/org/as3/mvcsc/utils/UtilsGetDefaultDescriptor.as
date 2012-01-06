@@ -240,16 +240,17 @@ package org.as3.mvcsc.utils
 		
 		/**
 		 * 
+		 * TO DO:
 		 * @param backgroundServiceInterfaceQName
 		 * @param backgroundProcesses
 		 * 
 		 */
 		public static function addBackgroundProcess(backgroundServiceInterfaceQName:String, backgroundProcesses:BackgroundProcesses):void
 		{
-			var backgroundProcessRule:DescriptorBackgroundProcess = new DescriptorBackgroundProcess();
+			/*var backgroundProcessRule:DescriptorBackgroundProcess = new DescriptorBackgroundProcess();
 			backgroundProcessRule.processQNameIBackgroundProcess  = getQualifiedClassName(backgroundServiceInterfaceQName);
 			
-			backgroundProcesses.descriptorCollection.push(backgroundProcessRule);
+			backgroundProcesses.descriptorCollection.push(backgroundProcessRule);*/
 		}
 		
 	}

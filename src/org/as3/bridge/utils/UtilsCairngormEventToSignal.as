@@ -99,23 +99,23 @@ package org.as3.bridge.utils
 		 * @return 
 		 * 
 		 */
-		public static function getValueObjectWithPropertyCollectionValues(collection : PropertiesCollection, valueObjectClassQName:String) : *
+		public static function getValueObjectWithPropertyCollectionValues(collection : PropertiesCollection, valueObjectClassQName:String, event:CairngormEvent) : *
 		{
 			if(valueObjectClassQName)
-			{
+			{  
 				var valueObject:* = GetTypedObject.getDataTypedObject(valueObjectClassQName);
 				for each(var info:PropertyInfo in collection.propertyInfoVector)
 				{
 					try{ valueObject[info.name] = info.value; }
 					catch(er:Error)
 					{ 
-						//Tracer.log(DynamicSignalFactory, er); 
+						//Tracer.log(DynamicSignalFactory, er);
 					}
 				}
 			}
 			else
 			{
-				Tracer.log(UtilsCairngormEventToSignal, "See CairngormBridge_ID.xml: No value object class provided to receive CairngormEvent properties");
+				Tracer.log(UtilsCairngormEventToSignal, "See CairngormBridge_ID.xml: No value object class provided to receive CairngormEvent properties in event: "+event);
 			}
 			
 			return valueObject;

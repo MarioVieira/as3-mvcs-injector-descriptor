@@ -108,7 +108,7 @@ package org.as3.bridge.core
 		{
 			var eventDescriptor:DescriptorCairngormEventMap = UtilsCairngormEventToSignal.getCairngormEventDescriptor(event, _bridge.cairgormBridgeDescriptor.descriptorCollection);
 			var eventProperties:PropertiesCollection		= DescribeObject.getObjectVariables(event);
-			var valueObjectWithCairngormEventProperties:*	= UtilsCairngormEventToSignal.getValueObjectWithPropertyCollectionValues(eventProperties, eventDescriptor.valueObjectQNameToReceiveEventProperties);
+			var valueObjectWithCairngormEventProperties:*	= UtilsCairngormEventToSignal.getValueObjectWithPropertyCollectionValues(eventProperties, eventDescriptor.valueObjectQNameToReceiveEventProperties, event);
 			
 			//Tracer.log(this, "eventDescriptor - eventDescriptor: "+eventDescriptor+" valueObjectWithCairngormEventProperties: "+valueObjectWithCairngormEventProperties);
 			UtilsCairngormEventToSignal.getInjectedSignalFromCairngormEventDescriptor(_injector, eventDescriptor).dispatch(valueObjectWithCairngormEventProperties);

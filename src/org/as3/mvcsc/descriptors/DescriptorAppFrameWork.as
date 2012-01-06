@@ -1,10 +1,14 @@
 package org.as3.mvcsc.descriptors
 {
+	import org.as3.bridge.control.BridgeProcess;
+	import org.as3.bridge.interfaces.IBridgeProcess;
 	import org.as3.mvcsc.interfaces.IMappingBackgroundProcesses;
+	import org.as3.mvcsc.interfaces.IMappingCairngormDataExchange;
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
 	import org.as3.mvcsc.task.TaskInit;
+	import org.as3.mvcsc.vo.BackgroundProcesses;
 
 	/**
 	 * 
@@ -45,10 +49,21 @@ package org.as3.mvcsc.descriptors
 		 */
 		public var commandsMapping	 			: IMappingSignalCommand;
 		
+		
 		/**
 		 * 
 		 */
-		public var backgroundProcessesMapping 	: IMappingBackgroundProcesses;
+		public var cairngormDataExchange 		: IMappingCairngormDataExchange;
+		
+		/**
+		 * 
+		 */
+		public var bridgeProcess	 			: IBridgeProcess;
+		
+		/**
+		 * 
+		 */
+		public var backgroundProcesses 			: BackgroundProcesses;
 		
 		/**
 		 * 

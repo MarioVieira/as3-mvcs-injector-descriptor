@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
-  <includeClasses/>
+  <includeClasses>
+    <classEntry path="org.as3.mvcs.interfaces.INotifier"/>
+    <classEntry path="org.as3.mvcsc.vo.StartupSequence"/>
+    <classEntry path="org.as3.mvcsc.vo.TaskSequencesVO"/>
+    <classEntry path="org.as3.mvcsc.vo.TaskSequenceVO"/>
+    <classEntry path="org.as3.bridge.interfaces.IBridgeProcess"/>
+    <classEntry path="org.as3.bridge.core.Processes"/>
+    <classEntry path="org.as3.mvcsc.interfaces.IMappingCairngormDataExchange"/>
+  </includeClasses>
   <includeResources/>
   <namespaceManifests/>
 </flexLibProperties>

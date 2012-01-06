@@ -1,8 +1,8 @@
 package org.as3.mvcsc.interfaces
 {
+	import org.as3.bridge.interfaces.IBridgeProcess;
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
 	import org.as3.mvcsc.task.TaskInit;
-	import org.as3.mvcsc.vo.BackgroundProcesses;
 	import org.robotlegs.core.IInjector;
 
 	/**
@@ -10,16 +10,8 @@ package org.as3.mvcsc.interfaces
 	 * @author Mario Vieira 
 	 * 
 	 */
-	public interface IMappingBackgroundProcesses
+	public interface IMappingBackgroundProcesses extends IBridgeProcess
 	{
-		/**
-		 * 
-		 * @param injector
-		 * @param appFrameWorkDescriptor
-		 * 
-		 */
-		function initializeBackgroundProcesses(injector:IInjector):void;
-		
 		/**
 		 * 
 		 * @param injector

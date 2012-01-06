@@ -1,14 +1,17 @@
 package org.as3.mvcsc
 {
+	import org.as3.bridge.interfaces.IBridgeProcess;
 	import org.as3.mvcsc.descriptors.DescriptorAppFrameWork;
+	import org.as3.mvcsc.descriptors.DescriptorBackgroundProcess;
 	import org.as3.mvcsc.descriptors.DescriptorCore;
 	import org.as3.mvcsc.descriptors.DescriptorExternalAppFrameWork;
-	import org.as3.mvcsc.interfaces.IMappingBackgroundProcesses;
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
 	import org.as3.mvcsc.task.TaskInit;
 	import org.as3.mvcsc.utils.UtilsMapping;
+	import org.as3.mvcsc.utils.UtilsProcesses;
+	import org.as3.mvcsc.vo.BackgroundProcesses;
 	import org.as3.mvcsc.vo.Commands;
 	import org.as3.mvcsc.vo.Controls;
 	import org.as3.mvcsc.vo.Models;
@@ -58,9 +61,9 @@ package org.as3.mvcsc
 				//3rd - don't rely on any injection rules
 				mapServices(appFrameWorkDescriptor.servicesMapping, coreDescriptor.injector);
 				//4th - relies on 1st, 2nd, and 3rd
-				mapControls(appFrameWorkDescriptor.controlsMapping, appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector);
+				mapControls(appFrameWorkDescriptor.controlsMapping, coreDescriptor.injector);
 				//5th - relies on 1st, 2nd, and 3rd
-				initializeBackgroundProcesses(appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector);
+				initializeBridge(appFrameWorkDescriptor.bridgeProcess, coreDescriptor.injector);
 				//5th - relies on 1st, 2nd, and 3rd
 				mapViews(appFrameWorkDescriptor.viewsMapping, coreDescriptor.mediatorMap);
 				
@@ -81,12 +84,30 @@ package org.as3.mvcsc
 				//6th - relies on all
 				mapExternalViews(coreDescriptor.mediatorMap, appFrameWorkDescriptor.viewsMapping, externalAppFrameWorkDescriptor.viewRules);
 				//4th - relies on 1st, 2nd, and 3rd
-				initializeExternalBackgroundProcesses(appFrameWorkDescriptor.backgroundProcessesMapping, coreDescriptor.injector, externalAppFrameWorkDescriptor, appFrameWorkDescriptor.startupSequence);
+				mapBridgeCaringormCommands(appFrameWorkDescriptor.bridgeProcess, coreDescriptor.injector, externalAppFrameWorkDescriptor);
+				
+				initializerBackgrounProcesses(coreDescriptor.injector, appFrameWorkDescriptor.backgroundProcesses)
+				
+				initializeStartupSequence(appFrameWorkDescriptor.startupSequence);
 				
 				trace("------------------------ EXTERNAL APPLICATION FRAME WORK MAPPED ---------------- \n\n");
 			}
 		}
-	
+		
+		private function initializeStartupSequence(startupSequence:Vector.<TaskInit>):void
+		{
+			/*, appFrameWorkDescriptor.startupSequence
+			initializeStartupSequence(injector, startupSequence);*/
+		}
+		
+		private function initializerBackgrounProcesses(injector:IInjector, backgroundProcesses:BackgroundProcesses):void
+		{
+			for each(var process:DescriptorBackgroundProcess in backgroundProcesses.descriptorCollection)
+			{
+				UtilsProcesses.initializeBackgroundProcess(injector, process);
+			}
+		}
+		
 		/**
 		 * 
 		 * @param injector
@@ -151,7 +172,7 @@ package org.as3.mvcsc
 		 * @param injector
 		 * 
 		 */		
-		protected function mapControls(controlsMapping:IMappingInjector, backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector):void
+		protected function mapControls(controlsMapping:IMappingInjector, injector:IInjector):void
 		{
 			controlsMapping.mapRules(injector);
 		}
@@ -163,9 +184,9 @@ package org.as3.mvcsc
 		 * @param injector
 		 * 
 		 */
-		protected function initializeBackgroundProcesses(backgroundProcessesMapping:IMappingBackgroundProcesses, injector:IInjector):void
+		protected function initializeBridge(bridgeProcess:IBridgeProcess, injector:IInjector):void
 		{
-			backgroundProcessesMapping.initializeBackgroundProcesses(injector);
+			bridgeProcess.initializeBridge(injector);
 		}
 		
 		/**
@@ -175,10 +196,9 @@ package org.as3.mvcsc
 		 * @param appFrameWorkDescriptor
 		 * 
 		 */		
-		protected function initializeExternalBackgroundProcesses(backgrounProcessesMapping:IMappingBackgroundProcesses, injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork, startupSequence:Vector.<TaskInit>):void
+		protected function mapBridgeCaringormCommands(bridgeProcess:IBridgeProcess, injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
 		{
-			backgrounProcessesMapping.initializeExternalBackgroundProcesses(injector, appFrameWorkDescriptor);
-			backgrounProcessesMapping.initializeStartupSequence(injector, startupSequence);
+			bridgeProcess.mapCairngormCommands(appFrameWorkDescriptor.cairngormEventsRules);
 		}
 
 		/**

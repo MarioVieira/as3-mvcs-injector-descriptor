@@ -4,21 +4,28 @@ package org.as3.mvcsc.descriptors
 
 	/**
 	 * 
-	 * Background Processes descriptor, also place where the instance will be held
+	 * Background Processes descriptor 
 	 * 
 	 * @author Mario Vieira 
 	 * 
 	 */
 	public class DescriptorBackgroundProcess
 	{
-		/**
-		 * 
+		
+		public function DescriptorBackgroundProcess(backgrounProcessClass:Class) 
+		{	
+			this.backgrounProcessClass = backgrounProcessClass;
+		}
+		
+		/**  
+		 * @backgrounProcessClass A Class that implements IBackgroundProcess
+		 * @see org.as3.interfaces.IBackgroundProcess
 		 */ 
-		public var processQNameIBackgroundProcess	: String;
+		public var backgrounProcessClass : Class;
 		
 		/**
-		 * 
-		 */
-		public var data								: Object;
+		 *The reference where the background process lives on 
+		 */		
+		public var backgrounProcessReferece : *;
 	}
 }

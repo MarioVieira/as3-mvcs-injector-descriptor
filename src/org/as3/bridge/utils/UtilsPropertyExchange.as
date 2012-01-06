@@ -18,14 +18,20 @@ package org.as3.bridge.utils
 		{
 			//Tracer.log(PropertyExchange, "injector: "+injector);
 			try { injector.getInstance(injectorModel)[toPropertyName] = cairngormModel[fromPropertyName]; }
-			catch(er:Error){ Tracer.log(UtilsPropertyExchange, er) };		
+			catch(er:Error)
+			{ 
+				//Tracer.log(UtilsPropertyExchange, er) 
+			};		
 		}
 		
 		public static function passPropertyFromInjectedModelToModelLocator(cairngormModel:IModelLocator, injector:IInjector, injectorModel:Class, fromPropertyName:String, toPropertyName:String):void
 		{
 			//Tracer.log(PropertyExchange, "injector: "+injector);
 			try { cairngormModel[toPropertyName] = injector.getInstance(injectorModel)[fromPropertyName] }
-			catch(er:Error){ Tracer.log(UtilsPropertyExchange, er) };	
+			catch(er:Error)
+			{ 
+				//Tracer.log(UtilsPropertyExchange, er) 
+			};	
 		}
 	}
 }

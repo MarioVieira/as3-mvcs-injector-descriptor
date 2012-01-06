@@ -20,6 +20,6 @@ package org.as3.mvcsc.vo
 		/**
 		 * 
 		 */
-		[Serialize] public var descriptorCollection:Vector.<DescriptorBackgroundProcess>;
+		public var descriptorCollection:Vector.<DescriptorBackgroundProcess>;
 	}
 }
