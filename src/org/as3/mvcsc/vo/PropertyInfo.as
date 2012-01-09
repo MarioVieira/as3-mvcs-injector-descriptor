@@ -59,6 +59,21 @@ package org.as3.mvcsc.vo
 		
 		/**
 		 * 
+		 * @return 
+		 * 
+		 */
+		public function get valueToString():String
+		{
+			return String(_value);		
+		}
+		
+		public function set valueToString(value:String):void
+		{
+			_value = value;	
+		}
+		
+		/**
+		 * 
 		 * @param value
 		 * 
 		 */
