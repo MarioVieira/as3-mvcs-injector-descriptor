@@ -1,115 +1,49 @@
 package org.as3.mvcsc.task
 {
-	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
+	import org.as3.mvcsc.interfaces.ITask;
 	
-	import org.as3.interfaces.IDispose;
-	import org.as3.mvcsc.utils.Tracer;
-	import org.osflash.signals.Signal;
-	import org.robotlegs.core.IInjector;
-	
-	public class TaskSequence extends Signal implements IDispose
+	public class TaskSequence
 	{
-		protected var _injector			:IInjector;
-		protected var _currentTask		:TaskInit;
-		protected var _tasks			:Vector.<TaskInit>;
-		protected var _currentTaskCount	:int;
-		protected var _taskTimer		:Timer;
+		private var _sequence					:Vector.<ITask>;
+		private var _simultaneousNotSequential	:Boolean;
 		
-		public function TaskSequence(taskTimeout:Number = 60000)
+		/**
+		 *  
+		 * If any task of sequence will be executed upon a property change it's by defintion not a sequential task (but simultaneous), and so <code> simultaneousNotSequential = true </code> will be ignored
+		 *  
+		 * @see org.as3.mvcsc.task.TaskDescriptor
+		 * @param simultaneousNotSequential
+		 * 
+		 */		
+		public function TaskSequence(simultaneousNotSequential:Boolean)
 		{
-			_tasks 		= new Vector.<TaskInit>;	
-			_taskTimer 	= new Timer(taskTimeout);
+			_simultaneousNotSequential = simultaneousNotSequential;
+			_sequence = new Vector.<ITask>;
 		}
 		
-		protected function setObservers():void
+		public function get simultaneousNotSequential():Boolean
 		{
-			_taskTimer.addEventListener(TimerEvent.TIMER, onTaskTimeout);
+			return _simultaneousNotSequential;
 		}
 		
-		public function addTask(task:TaskInit):void
+		public function addTaskToSequence(task:ITask):void
 		{
-			_currentTaskCount = 0;
-			_tasks.push(task);
+			_sequence.push(task);
 		}
 		
-		public function addTasks(tasks:Vector.<TaskInit>):void
+		public function getTask(index:int):ITask
 		{
-			_tasks 		 = tasks;
-			_currentTaskCount = 0;
+			return _sequence[index];
 		}
 		
-		public function startSequence(injector:IInjector):void
+		public function get sequence():Vector.<ITask>
 		{
-			_injector = injector;
-			setObservers();
-			startNextTask();
+			return _sequence;
 		}
 		
-		protected function complete():void
+		public function get length():int
 		{
-			Tracer.log(this, "complete()");
-			dispatch();
-			dispose();
-		}
-		
-		protected function startNextTask():void
-		{
-			_currentTask = getNextTask();
-			if(_currentTask) 
-			{
-				_currentTaskCount++;
-				_currentTask.addOnce(onTaskExecuted);
-				_currentTask.start(_injector);
-				startTimer();
-			}
-			else
-			{
-				complete();
-			} 
-		}		
-		
-		private function startTimer():void
-		{
-			_taskTimer.reset();
-			_taskTimer.start();
-		}
-		
-		private function stopTimer():void
-		{
-			_taskTimer.stop();
-		}
-		
-		protected function onTaskExecuted(success:Boolean):void
-		{
-			stopTimer();
-			startNextTask();
-		}
-		
-		protected function getNextTask():TaskInit
-		{
-			if(_currentTaskCount < _tasks.length) 
-				return _tasks[_currentTaskCount];
-			
-			return null;
-		}
-
-		public function dispose(recursive:Boolean=true):void
-		{
-			_taskTimer.removeEventListener(TimerEvent.TIMER, onTaskTimeout);
-		}
-		
-		protected function removeTaskObserver():void
-		{
-			if(_currentTask) _currentTask.remove(onTaskExecuted);
-		}
-		
-		private function onTaskTimeout(e:Event):void
-		{
-			removeTaskObserver();
-			stopTimer();
-			startNextTask();
+			return _sequence.length;
 		}
 	}
 }
