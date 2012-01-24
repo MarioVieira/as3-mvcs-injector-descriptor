@@ -7,11 +7,13 @@ package org.as3.mvcsc.task
 	import org.as3.interfaces.IDispose;
 	import org.as3.mvcsc.interfaces.INotifier;
 	import org.as3.mvcsc.interfaces.ITask;
+	import org.as3.mvcsc.task.TaskSequence;
+	import org.as3.mvcsc.task.utils.TasksUtils;
 	import org.as3.mvcsc.utils.Tracer;
 	import org.osflash.signals.Signal;
 	import org.robotlegs.core.IInjector;
 	
-	public class TasksExecuter implements INotifier, IDispose
+	public class TasksExecuter implements IDispose
 	{
 		protected var _injector					:IInjector;
 		protected var _currentTask				:ITask;
@@ -19,12 +21,13 @@ package org.as3.mvcsc.task
 		protected var _currentTaskCount			:int;
 		protected var _taskTimer				:Timer;
 		
-		private var _notifier:Signal;
+		private var _completeTasks:int;
+		private var _signalExecution:Signal;
 		
 		public function TasksExecuter(taskTimeout:Number = 60000)
 		{
-			_taskTimer 	= new Timer(taskTimeout);
-			_notifier   = new Signal();
+			_taskTimer 		 = new Timer(taskTimeout);
+			_signalExecution = new Signal(int, Boolean); 
 		}
 		
 		public function dispose(recursive:Boolean=true):void
@@ -32,12 +35,12 @@ package org.as3.mvcsc.task
 			_taskTimer.removeEventListener(TimerEvent.TIMER, onTaskTimeout);
 		}
 		
-		public function get notifier():Signal
+		public function get signalExecution():Signal
 		{
-			return _notifier;	
+			return _signalExecution;	
 		}
 		
-		public function success():void
+		/*public function success():void
 		{
 			_notifier.dispatch(true);
 		}
@@ -45,7 +48,7 @@ package org.as3.mvcsc.task
 		public function failure():void
 		{
 			_notifier.dispatch(false);
-		}
+		}*/
 		
 		protected function setObservers():void
 		{
@@ -54,11 +57,14 @@ package org.as3.mvcsc.task
 		
 		public function startSequence(sequence:TaskSequence, injector:IInjector):void
 		{
+			_currentTaskCount = 0;
 			_tasks = sequence;
 			_injector = injector;
-			setObservers();
 			
-			var hasTaskExecutedUponPropertyChange:Boolean = isAnyTaskExecutedUponPropertyChange(_tasks)
+			if(sequence.timeOutSequence)
+				setObservers();
+			
+			var hasTaskExecutedUponPropertyChange:Boolean = TasksUtils.isAnyTaskExecutedUponPropertyChange(_tasks)
 				
 			//Tracer.log(this, "startSequence - sequence.simultaneousNotSequential: "+sequence.simultaneousNotSequential+" hasTaskExecutedUponPropertyChange: "+hasTaskExecutedUponPropertyChange);
 				
@@ -72,40 +78,40 @@ package org.as3.mvcsc.task
 			}
 		}
 		
-		private function isAnyTaskExecutedUponPropertyChange(tasks:TaskSequence):Boolean
-		{
-			for each (var task:ITask in tasks.sequence) 
-			{
-				if(task.descriptor.executeTaskUponPropertyChange)
-					return true;
-			}
-			
-			return false;
-		}
-		
 		private function fireAllTasks():void
 		{
-			Tracer.log(this, "fireAllTasks()");
-			
 			for each(var task:ITask in _tasks.sequence)
 			{
+				task.notifier.addOnce(onSilmutaneousTasks)
 				task.start(_injector);
 			}
 			
-			complete();
+			//complete();
+		}
+		
+		private function onSilmutaneousTasks(success:Boolean):void
+		{
+			_completeTasks++
+			
+			if(_completeTasks == _tasks.length)
+			{
+				//Tracer.log(this, "onSilmutaneousTasks() - _completeTasks: "+_completeTasks+" _tasks.length: "+_tasks.length);
+				complete();
+			}
 		}
 		
 		protected function complete():void
 		{
 			//Tracer.log(this, "complete()");
-			success();
+			_signalExecution.dispatch(_tasks.id, true);
 			dispose();
+			
 		}
 		
 		protected function startNextTask():void
 		{
 			_currentTask = getNextTask();
-			Tracer.log(this, "startNextTask() - _currentTask: "+_currentTask);
+			//Tracer.log(this, "startNextTask() - _currentTask: "+_currentTask);
 			
 			if(_currentTask) 
 			{

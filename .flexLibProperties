@@ -8,6 +8,9 @@
     <classEntry path="org.as3.bridge.interfaces.IBridgeProcess"/>
     <classEntry path="org.as3.bridge.core.Processes"/>
     <classEntry path="org.as3.mvcsc.interfaces.IMappingCairngormDataExchange"/>
+    <classEntry path="org.as3.mvcsc.task.TaskSequenceNotifier"/>
+    <classEntry path="org.as3.mvcsc.task.utils.TasksUtils"/>
+    <classEntry path="org.as3.mvcsc.task.vo.TaskSequenceInfo"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

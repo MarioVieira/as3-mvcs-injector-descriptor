@@ -115,7 +115,7 @@ package org.as3.bridge.utils
 			}
 			else
 			{
-				Tracer.log(UtilsCairngormEventToSignal, "See CairngormBridge_ID.xml: No value object class provided to receive CairngormEvent properties in event: "+event);
+				//Tracer.log(UtilsCairngormEventToSignal, "See CairngormBridge_ID.xml: No value object class provided to receive CairngormEvent properties in event: "+event);
 			}
 			
 			return valueObject;

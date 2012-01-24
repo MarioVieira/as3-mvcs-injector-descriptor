@@ -1,11 +1,17 @@
 package org.as3.mvcsc.task
 {
 	import org.as3.mvcsc.interfaces.ITask;
+	import org.as3.mvcsc.task.vo.TaskSequenceInfo;
 	
 	public class TaskSequence
 	{
+		public var timeOutSequence				:Boolean;
+		public var canRestart					:Boolean;
+		public var id							:int;
+		public var executedOnce					:Boolean;
 		private var _sequence					:Vector.<ITask>;
 		private var _simultaneousNotSequential	:Boolean;
+		
 		
 		/**
 		 *  
@@ -15,8 +21,9 @@ package org.as3.mvcsc.task
 		 * @param simultaneousNotSequential
 		 * 
 		 */		
-		public function TaskSequence(simultaneousNotSequential:Boolean)
+		public function TaskSequence(simultaneousNotSequential:Boolean, canBeRestarted:Boolean)
 		{
+			canRestart = canBeRestarted;
 			_simultaneousNotSequential = simultaneousNotSequential;
 			_sequence = new Vector.<ITask>;
 		}

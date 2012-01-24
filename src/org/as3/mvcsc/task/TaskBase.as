@@ -6,6 +6,7 @@ package org.as3.mvcsc.task
 	
 	import org.as3.interfaces.IDispose;
 	import org.as3.mvcsc.interfaces.ITask;
+	import org.as3.mvcsc.utils.Tracer;
 	import org.osflash.signals.Signal;
 	import org.robotlegs.core.IInitializer;
 	import org.robotlegs.core.IInjector;

@@ -87,7 +87,6 @@ package org.as3.mvcsc
 		{
 			_loadExternalDescriptor.dispose();  
 			setupApplicationFrameWork(applicationFrameWorkDescriptor, externalAppFrameWorkDescriptor);
-			dispatchEvent(new ContextEvent(ContextEvent.STARTUP_COMPLETE));
 		}
 		      
 		/**
@@ -98,7 +97,14 @@ package org.as3.mvcsc
 		 */
 		protected function setupApplicationFrameWork(appFrameWorkDescriptor:DescriptorAppFrameWork, externalAppFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
 		{
-			_appFrameWork = new ApplicationFrameWork( new DescriptorCore(injector, signalCommandMap, mediatorMap), appFrameWorkDescriptor, externalAppFrameWorkDescriptor);
+			_appFrameWork = new ApplicationFrameWork( );
+			_appFrameWork.signalComplete.addOnce(onComplete);
+			_appFrameWork.initializeFrameWork( new DescriptorCore(injector, signalCommandMap, mediatorMap), appFrameWorkDescriptor, externalAppFrameWorkDescriptor);
+		}
+		
+		private function onComplete():void
+		{
+			dispatchEvent(new ContextEvent(ContextEvent.STARTUP_COMPLETE));
 		}
 	}
 }

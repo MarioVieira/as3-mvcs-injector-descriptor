@@ -22,10 +22,20 @@ package org.as3.mvcsc.descriptors
 		 * @see org.as3.interfaces.IBackgroundProcess
 		 */ 
 		public var backgrounProcessClass : Class;
+		private var _backgrounProcessReferece:IBackgroundProcess;
 		
 		/**
 		 *The reference where the background process lives on 
 		 */		
-		public var backgrounProcessReferece : *;
+		public function set backgrounProcessReferece(value:IBackgroundProcess):void
+		{
+			_backgrounProcessReferece 		= value;
+			_backgrounProcessReferece.data 	= null;
+		}
+		
+		public function get backgrounProcessReferece():IBackgroundProcess
+		{
+			return _backgrounProcessReferece;
+		}
 	}
 }

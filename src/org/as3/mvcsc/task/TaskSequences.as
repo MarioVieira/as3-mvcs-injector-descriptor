@@ -13,6 +13,7 @@ package org.as3.mvcsc.task
 		
 		public function addSequence(vo:TaskSequence):void
 		{
+			vo.executedOnce = false;
 			_sequences.push(vo);
 		}
 		  
@@ -29,6 +30,11 @@ package org.as3.mvcsc.task
 		public function get length():int
 		{
 			return _sequences.length;
+		}
+		
+		public function removeSequences():void
+		{
+			_sequences.length = 0;
 		}
 	}
 }

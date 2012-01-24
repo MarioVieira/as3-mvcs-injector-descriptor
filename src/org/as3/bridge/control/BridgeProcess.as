@@ -32,6 +32,7 @@ package org.as3.bridge.control
 			
 			_injector						 = injector;
 			_bridge							 = Bridge.getInstance();
+			_bridge.applicationInjector		 = injector;
 			_routedCairngormFronController   = injector.getInstance(RouteCairngormCommands);
 			_cairngormRouter 			 	 = injector.getInstance(CairngormCommandToSignal);
 		}

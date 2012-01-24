@@ -1,5 +1,6 @@
 package org.as3.mvcsc
 {
+	
 	import org.as3.bridge.interfaces.IBridgeProcess;
 	import org.as3.mvcsc.descriptors.DescriptorAppFrameWork;
 	import org.as3.mvcsc.descriptors.DescriptorBackgroundProcess;
@@ -8,7 +9,8 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.interfaces.IMappingInjector;
 	import org.as3.mvcsc.interfaces.IMappingMediator;
 	import org.as3.mvcsc.interfaces.IMappingSignalCommand;
-	import org.as3.mvcsc.task.TaskInit;
+	import org.as3.mvcsc.processes.ProcessStartupSequence;
+	import org.as3.mvcsc.task.TasksSet;
 	import org.as3.mvcsc.utils.UtilsMapping;
 	import org.as3.mvcsc.utils.UtilsProcesses;
 	import org.as3.mvcsc.vo.BackgroundProcesses;
@@ -17,9 +19,12 @@ package org.as3.mvcsc
 	import org.as3.mvcsc.vo.Models;
 	import org.as3.mvcsc.vo.Services;
 	import org.as3.mvcsc.vo.Views;
+	import org.osflash.signals.ISignal;
+	import org.osflash.signals.Signal;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.core.IMediatorMap;
 	import org.robotlegs.core.ISignalCommandMap;
+
 	
 	/** 
 	 * 
@@ -31,16 +36,39 @@ package org.as3.mvcsc
 	 */
 	public class ApplicationFrameWork
 	{
+		protected var _startSequence					:ProcessStartupSequence;
+		protected var _coreDescriptor					:DescriptorCore;
+		protected var _appFrameWorkDescriptor			:DescriptorAppFrameWork;
+		protected var _signalComplete					:ISignal;
+		
+		/**
+		 * 
+		 * 
+		 */				
+		public function ApplicationFrameWork() 
+		{
+			_signalComplete			= new Signal();
+			_startSequence  		= new ProcessStartupSequence();
+		}
+		
 		/**
 		 * 
 		 * @param coreDescriptor
 		 * @param appFrameWorkDescriptor
 		 * @param externalAppFrameWorkDescriptor
 		 *  
-		 */		
-		public function ApplicationFrameWork(coreDescriptor:DescriptorCore, appFrameWorkDescriptor:DescriptorAppFrameWork, externalAppFrameWorkDescriptor:DescriptorExternalAppFrameWork) 
+		 */
+		public function initializeFrameWork(coreDescriptor:DescriptorCore, appFrameWorkDescriptor:DescriptorAppFrameWork, externalAppFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
 		{
-			createMappings(coreDescriptor, appFrameWorkDescriptor, externalAppFrameWorkDescriptor);
+			_coreDescriptor 		= coreDescriptor;
+			_appFrameWorkDescriptor = appFrameWorkDescriptor;
+			
+			createMappings(coreDescriptor, appFrameWorkDescriptor, externalAppFrameWorkDescriptor);	
+		}
+		
+		public function get signalComplete():ISignal
+		{
+			return _signalComplete;
 		}
 		
 		/**
@@ -54,17 +82,17 @@ package org.as3.mvcsc
 		{
 			if(appFrameWorkDescriptor)
 			{
-				//1st - command can only get triggered once all mapping is done
+				//command can only get triggered once all mapping is done
 				mapSignalCommands(appFrameWorkDescriptor.commandsMapping, coreDescriptor.signalCommandMap);
-				//2nd - don't rely on any injection rules
+				//don't rely on any injection rules
 				mapModels(appFrameWorkDescriptor.modelsMapping, coreDescriptor.injector);
-				//3rd - don't rely on any injection rules
+				//don't rely on any injection rules
 				mapServices(appFrameWorkDescriptor.servicesMapping, coreDescriptor.injector);
-				//4th - relies on 1st, 2nd, and 3rd
+				//relies on the others
 				mapControls(appFrameWorkDescriptor.controlsMapping, coreDescriptor.injector);
-				//5th - relies on 1st, 2nd, and 3rd
+				//relies on the others
 				initializeBridge(appFrameWorkDescriptor.bridgeProcess, coreDescriptor.injector);
-				//5th - relies on 1st, 2nd, and 3rd
+				//relies on the others
 				mapViews(appFrameWorkDescriptor.viewsMapping, coreDescriptor.mediatorMap);
 				
 				trace('\n');
@@ -85,22 +113,45 @@ package org.as3.mvcsc
 				mapExternalViews(coreDescriptor.mediatorMap, appFrameWorkDescriptor.viewsMapping, externalAppFrameWorkDescriptor.viewRules);
 				//4th - relies on 1st, 2nd, and 3rd
 				mapBridgeCaringormCommands(appFrameWorkDescriptor.bridgeProcess, coreDescriptor.injector, externalAppFrameWorkDescriptor);
-				
-				initializerBackgrounProcesses(coreDescriptor.injector, appFrameWorkDescriptor.backgroundProcesses)
-				
-				initializeStartupSequence(appFrameWorkDescriptor.startupSequence);
-				
-				trace("------------------------ EXTERNAL APPLICATION FRAME WORK MAPPED ---------------- \n\n");
+			}
+			
+			trace("------------------------ EXTERNAL APPLICATION FRAME WORK MAPPED ----------------");
+			
+			if(appFrameWorkDescriptor && appFrameWorkDescriptor.startupSequence)
+			{
+				initializeStartupSequence(coreDescriptor.injector, appFrameWorkDescriptor.startupSequence);
+			}
+			else if(externalAppFrameWorkDescriptor)
+			{
+				initializeBackgrounProcesses(coreDescriptor.injector, appFrameWorkDescriptor.backgroundProcesses);
+				complete();
 			}
 		}
 		
-		private function initializeStartupSequence(startupSequence:Vector.<TaskInit>):void
+		private function complete():void
 		{
-			/*, appFrameWorkDescriptor.startupSequence
-			initializeStartupSequence(injector, startupSequence);*/
+			_signalComplete.dispatch();
 		}
 		
-		private function initializerBackgrounProcesses(injector:IInjector, backgroundProcesses:BackgroundProcesses):void
+		private function initializeStartupSequence(injector:IInjector, startupSequence:TasksSet):void
+		{
+			_startSequence 		= new ProcessStartupSequence();
+			_startSequence.notifier.addOnce(onStartupSequenceComplete)
+			_startSequence.init(injector);
+			_startSequence.data = startupSequence;
+			
+			if(!startupSequence.executeViaSignal)
+				_startSequence.requestStartupSequence();
+		}
+		
+		private function onStartupSequenceComplete(success:Boolean):void
+		{
+			initializeBackgrounProcesses(_coreDescriptor.injector, _appFrameWorkDescriptor.backgroundProcesses);
+			trace("----------------------------- STARTUP SEQUENCE COMPLETE ------------------------ \n\n");
+			complete();
+		}
+		
+		private function initializeBackgrounProcesses(injector:IInjector, backgroundProcesses:BackgroundProcesses):void
 		{
 			for each(var process:DescriptorBackgroundProcess in backgroundProcesses.descriptorCollection)
 			{
