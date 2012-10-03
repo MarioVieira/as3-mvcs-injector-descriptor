@@ -51,7 +51,7 @@ package org.as3.mvcsc
 		override public function startup() : void
 		{
 			setupCore();
-			if(useExternalXMLDescriptors) loadExternalFrameWorkDescriptors();
+			if(useExternalXMLDescriptors) loadExternalFrameWorkDescriptors(applicationFrameWorkDescriptor.externalDescriptorClasses);
 			else 						  setupApplicationFrameWork(applicationFrameWorkDescriptor, null);						  
 		}
 		
@@ -71,11 +71,11 @@ package org.as3.mvcsc
 		 * 
 		 * 
 		 */
-		protected function loadExternalFrameWorkDescriptors():void
+		protected function loadExternalFrameWorkDescriptors(arrayDescriptorOfClasses:Array):void
 		{
 			_loadExternalDescriptor = new UtilsDescriptorLoader( applicationFrameWorkDescriptor.descriptorFolderName );
 			_loadExternalDescriptor.addOnce(onExternalFrameWorkDescriptorLoaded);
-			_loadExternalDescriptor.loadExternalAppFrameWorkDescriptor();
+			_loadExternalDescriptor.loadExternalAppFrameWorkDescriptor( arrayDescriptorOfClasses );
 		}
   
 		/**
