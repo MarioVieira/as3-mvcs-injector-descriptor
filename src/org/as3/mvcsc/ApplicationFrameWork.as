@@ -96,7 +96,7 @@ package org.as3.mvcsc
 				mapViews(appFrameWorkDescriptor.viewsMapping, coreDescriptor.mediatorMap);
 				
 				trace('\n');
-				trace("------------------------ INTERNAL APPLICATION FRAME WORK MAPPED ----------------");
+				trace("------------------------ 1st - INTERNAL APPLICATION FRAME WORK MAPPED ----------------");
 			}
 			
 			if(externalAppFrameWorkDescriptor)
@@ -115,7 +115,11 @@ package org.as3.mvcsc
 				mapBridgeCaringormCommands(appFrameWorkDescriptor.bridgeProcess, coreDescriptor.injector, externalAppFrameWorkDescriptor);
 			}
 			
-			trace("------------------------ EXTERNAL APPLICATION FRAME WORK MAPPED ----------------");
+			//fires complete after mapping, Tasks and BGProcess are not complete, those are running over and after completion
+			if(appFrameWorkDescriptor && !externalAppFrameWorkDescriptor || appFrameWorkDescriptor && externalAppFrameWorkDescriptor)
+				complete();
+			
+			trace("------------------------ 2nd - EXTERNAL APPLICATION FRAME WORK MAPPED ----------------");
 			
 			if(appFrameWorkDescriptor && appFrameWorkDescriptor.startupSequence)
 			{
@@ -124,7 +128,6 @@ package org.as3.mvcsc
 			else if(externalAppFrameWorkDescriptor)
 			{
 				initializeBackgrounProcesses(coreDescriptor.injector, appFrameWorkDescriptor.backgroundProcesses);
-				complete();
 			}
 		}
 		
@@ -146,16 +149,20 @@ package org.as3.mvcsc
 		
 		private function onStartupSequenceComplete(success:Boolean):void
 		{
+			trace("\n----------------------------- 3rd - STARTUP SEQUENCE COMPLETE ------------------------ \n");
 			initializeBackgrounProcesses(_coreDescriptor.injector, _appFrameWorkDescriptor.backgroundProcesses);
-			trace("----------------------------- STARTUP SEQUENCE COMPLETE ------------------------ \n\n");
 			complete();
 		}
 		
 		private function initializeBackgrounProcesses(injector:IInjector, backgroundProcesses:BackgroundProcesses):void
 		{
-			for each(var process:DescriptorBackgroundProcess in backgroundProcesses.descriptorCollection)
+			if(backgroundProcesses && backgroundProcesses.descriptorCollection)
 			{
-				UtilsProcesses.initializeBackgroundProcess(injector, process);
+			trace("\n------------------------ 4th (end) - INITIALIZE BACKGROUND PROCESSES -------------------- \n");
+				for(var i:int; i < backgroundProcesses.descriptorCollection.length; i++)
+				{
+					UtilsProcesses.initializeBackgroundProcess(injector, backgroundProcesses.descriptorCollection[i]);
+				}
 			}
 		}
 		
@@ -168,7 +175,8 @@ package org.as3.mvcsc
 		 */		
 		protected function mapExternalModels(injector:IInjector, modelsMapping:IMappingInjector, externalModels:Models) : void
 		{
-			UtilsMapping.mapInjectorDescriptorRule(injector, externalModels.descriptorCollection);
+			if(externalModels)
+				UtilsMapping.mapInjectorDescriptorRule(injector, externalModels.descriptorCollection);
 		}
 
 		/**
@@ -191,7 +199,8 @@ package org.as3.mvcsc
 		 */		
 		protected function mapExternalViews(mediatorMap : IMediatorMap, viewsMapping:IMappingMediator, externalDescriptors:Views) : void
 		{
-			UtilsMapping.mapMediatorDescriptorRules(mediatorMap, externalDescriptors.descriptorCollection);
+			if(externalDescriptors)
+				UtilsMapping.mapMediatorDescriptorRules(mediatorMap, externalDescriptors.descriptorCollection);
 		}
 
 		/**
@@ -202,7 +211,7 @@ package org.as3.mvcsc
 		 */		
 		protected function mapViews(viewsMapping:IMappingMediator, mediatorMap:IMediatorMap):void
 		{
-			viewsMapping.mapMediators(mediatorMap);
+			viewsMapping.mapMediators(mediatorMap); 
 		}
 	
 		/**
@@ -214,7 +223,8 @@ package org.as3.mvcsc
 		 */		
 		protected function mapExternalControls(injector:IInjector, controlsMapping:IMappingInjector, externalControls:Controls):void
 		{
-			UtilsMapping.mapInjectorDescriptorRule(injector, externalControls.descriptorCollection);
+			if(externalControls)
+				UtilsMapping.mapInjectorDescriptorRule(injector, externalControls.descriptorCollection);
 		}
 
 		/**
@@ -249,7 +259,8 @@ package org.as3.mvcsc
 		 */		
 		protected function mapBridgeCaringormCommands(bridgeProcess:IBridgeProcess, injector:IInjector, appFrameWorkDescriptor:DescriptorExternalAppFrameWork):void
 		{
-			bridgeProcess.mapCairngormCommands(appFrameWorkDescriptor.cairngormEventsRules);
+			if(appFrameWorkDescriptor.cairngormEventsRules)
+				bridgeProcess.mapCairngormCommands(appFrameWorkDescriptor.cairngormEventsRules);
 		}
 
 		/**
@@ -261,7 +272,8 @@ package org.as3.mvcsc
 		 */		
 		protected function mapExternalServices(injector:IInjector, servicesMapping:IMappingInjector, servicesDescriptors:Services):void
 		{
-			UtilsMapping.mapInjectorDescriptorRule(injector, servicesDescriptors.descriptorCollection);	
+			if(servicesDescriptors)
+				UtilsMapping.mapInjectorDescriptorRule(injector, servicesDescriptors.descriptorCollection);	
 		}
 
 		/**
@@ -284,7 +296,8 @@ package org.as3.mvcsc
 		 */		
 		protected function mapExternalSignalCommands(signalCommandMap : ISignalCommandMap, commandsMapping:IMappingSignalCommand, externalCommands:Commands) : void
 		{
-			UtilsMapping.mapSignalCommandDescriptorRules(signalCommandMap, externalCommands.descriptorCollection);
+			if(externalCommands)
+				UtilsMapping.mapSignalCommandDescriptorRules(signalCommandMap, externalCommands.descriptorCollection);
 		}
 
 		/**
