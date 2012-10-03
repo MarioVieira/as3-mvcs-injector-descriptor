@@ -89,10 +89,23 @@ package org.as3.mvcsc.processes
 		{
 			if(_startSequenceResquested && _tasks)
 			{
-				//	Tracer.log(this, "executeTasksIfApplicable");
+				trace("\n------------------------------- REQUEST STARTUP SEQUENCE ----------------------- (sequences info: "+getSequenceInfo(_tasks)+")\n");
+				//	Tracer.log(this, "executeTasksIfApplicable");  
 				_startupSequenceManager.notifier.addOnce(onComplete);
 				_startupSequenceManager.executeTaskSet(_tasks, _injector);
 			}
+		}
+		
+		private function getSequenceInfo(tasks:TasksSet):String
+		{
+			var info:String = "";
+			
+			for (var i:int = 0; i < tasks.sequences.length; i++)
+			{
+				info += "seq no: "+i+" - length: "+tasks.sequences.sequences[i].length +"  ";
+			}
+			
+			return info;
 		}
 		
 		private function onComplete(success:Boolean):void
