@@ -62,5 +62,10 @@ package org.as3.mvcsc.descriptors
 		 * 
 		 */
 		public var startupSequence				: TasksSet;
+	
+		/**
+		 * 
+		 */
+		public var externalDescriptorClasses	: Array;
 	}
 }
