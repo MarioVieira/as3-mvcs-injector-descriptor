@@ -185,11 +185,12 @@ package org.as3.mvcsc.task
 			}
 			
 			_taskSet.removeAllTaskSequences();
-			for each(var seq:TaskSequence in tmpTaskSet.sequences.sequences)
+			
+			for each(var seqItem:TaskSequence in tmpTaskSet.sequences.sequences)
 			{
-				if(seq.canRestart)
+				if(seqItem.canRestart)
 				{
-					_taskSet.addSequence(seq);
+					_taskSet.addSequence(seqItem);
 				}
 			}
 			
